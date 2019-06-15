@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from "react-redux";
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import { doTest } from "./actions";
+
+const AppComponent = ({quota, error, clickFn}) => {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +21,27 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={clickFn}>
+        </button>
+        {error !== null ? <div>{quota}</div> : null}
       </header>
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  quota: state.test.result,
+  error: state.test.error,
+});
+
+const mapDispatchToProps = dispatch => ({
+  clickFn: () => {
+    console.log("doTest: ", doTest())
+    dispatch(doTest());
+  },
+});
+
+
+const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);
 
 export default App;
