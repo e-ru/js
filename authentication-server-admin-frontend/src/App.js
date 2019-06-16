@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
-import logo from './logo.svg';
-import './App.css';
+import NewWindow from "react-new-window";
+import PropTypes from "prop-types";
+import logo from "./logo.svg";
+import "./App.css";
 
-import NewWindow from 'react-new-window'
+import { setNewWindow, retrieveToken } from "./actions";
 
-import { doTest, setWindowClose,setNewWindow, retrieveToken} from "./actions";
-
-const AppComponent = ({quota, error, clickFn, openLoginWindow2, newWindow, getToken}) => {
+const AppComponent = ({ newWindow, openLoginWindow, getToken }) => {
   return (
     <div className="App">
       <header className="App-header">
@@ -15,28 +15,30 @@ const AppComponent = ({quota, error, clickFn, openLoginWindow2, newWindow, getTo
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
         {/* <button onClick={clickFn}> */}
-        <button onClick={openLoginWindow2}>
-        </button>
+        <button type="button" onClick={openLoginWindow} />
         {/* {error !== null ? <div>{quota}</div> : null} */}
-        {newWindow ? <NewWindow url='http://localhost:9191/oauth/authorize?response_type=code&client_id=mobile_2&redirect_uri=http://localhost:8889/redirect.html'
-          onUnload={getToken}
+        {newWindow ? (
+          <NewWindow
+            url="http://localhost:9191/oauth/authorize?response_type=code&client_id=mobile_3&redirect_uri=http://localhost:8889/redirect.html"
+            onUnload={getToken}
           >
-    <h1>Hi 👋</h1>
-  </NewWindow> : null }
-        
+            {/* <h1>Hi 👋</h1> */}
+          </NewWindow>
+        ) : null}
       </header>
     </div>
   );
-}
+};
+
+AppComponent.propTypes = {
+  newWindow: PropTypes.bool.isRequired,
+  openLoginWindow: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   quota: state.test.result,
@@ -45,31 +47,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clickFn: () => {
-    console.log("doTest: ", doTest())
-    dispatch(doTest());
-  },
   openLoginWindow: () => {
-    const url = 'http://localhost:9191/oauth/authorize?response_type=code&client_id=mobile_2&redirect_uri=http://localhost:8889/redirect.html';
-    const win = window.open(url, "login", 'width=600,height=400');
-    console.log("win", win)
-    win.onbeforeunload = e => {
-      dispatch(setWindowClose(e))
-      console.log("onClose: ", e)
-    }
-  },
-  openLoginWindow2: () => {
-    dispatch(setNewWindow(true))
+    dispatch(setNewWindow(true));
   },
   getToken: () => {
     let code = window.localStorage.getItem("code");
     code = code.substring(code.indexOf("=") + 1);
-    console.log("drin: ", code)
-    dispatch(retrieveToken(code))
+    console.log("drin: ", code);
+    dispatch(retrieveToken(code));
   },
 });
 
-
-const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);
+const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppComponent);
 
 export default App;
