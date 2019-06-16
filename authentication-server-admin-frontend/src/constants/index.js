@@ -1,7 +1,3 @@
-export const DO_TEST_REQUEST = 'DO_TEST_REQUEST';
-export const DO_TEST_SUCCESS = 'DO_TEST_SUCCESS';
-export const DO_TEST_FAILURE = 'DO_TEST_FAILURE';
-
-export const OAUTH_REQUEST = 'OAUTH_REQUEST';
-export const OAUTH_SUCCESS = 'OAUTH_SUCCESS';
-export const OAUTH_FAILURE = 'OAUTH_FAILURE';
+export const OAUTH_REQUEST = "OAUTH_REQUEST";
+export const OAUTH_SUCCESS = "OAUTH_SUCCESS";
+export const OAUTH_FAILURE = "OAUTH_FAILURE";
