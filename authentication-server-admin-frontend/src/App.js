@@ -5,9 +5,10 @@ import PropTypes from "prop-types";
 import logo from "./logo.svg";
 import "./App.css";
 
-import { setNewWindow, retrieveToken } from "./actions";
+import { OAUTH_SERVER, RESPONSE_TYPE, CLIENT_ID, REDIRECT_URL } from "./constants";
+import { showOAuthLoginWindow, retrieveToken } from "./actions";
 
-const AppComponent = ({ newWindow, openLoginWindow, getToken }) => {
+const AppComponent = ({ showOAuthWindow, showLoginWindow, getToken }) => {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,16 +19,12 @@ const AppComponent = ({ newWindow, openLoginWindow, getToken }) => {
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
-        {/* <button onClick={clickFn}> */}
-        <button type="button" onClick={openLoginWindow} />
-        {/* {error !== null ? <div>{quota}</div> : null} */}
-        {newWindow ? (
+        <button type="button" onClick={showLoginWindow} />
+        {showOAuthWindow ? (
           <NewWindow
-            url="http://localhost:9191/oauth/authorize?response_type=code&client_id=mobile_3&redirect_uri=http://localhost:8889/redirect.html"
+            url={`${OAUTH_SERVER}/authorize?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}`}
             onUnload={getToken}
-          >
-            {/* <h1>Hi 👋</h1> */}
-          </NewWindow>
+          />
         ) : null}
       </header>
     </div>
@@ -35,25 +32,22 @@ const AppComponent = ({ newWindow, openLoginWindow, getToken }) => {
 };
 
 AppComponent.propTypes = {
-  newWindow: PropTypes.bool.isRequired,
-  openLoginWindow: PropTypes.func.isRequired,
+  showOAuthWindow: PropTypes.bool.isRequired,
+  showLoginWindow: PropTypes.func.isRequired,
   getToken: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  quota: state.test.result,
-  error: state.test.error,
-  newWindow: state.test.newWindow,
+  showOAuthWindow: state.oauth.showOAuthWindow,
 });
 
 const mapDispatchToProps = dispatch => ({
-  openLoginWindow: () => {
-    dispatch(setNewWindow(true));
+  showLoginWindow: () => {
+    dispatch(showOAuthLoginWindow(true));
   },
   getToken: () => {
     let code = window.localStorage.getItem("code");
     code = code.substring(code.indexOf("=") + 1);
-    console.log("drin: ", code);
     dispatch(retrieveToken(code));
   },
 });
