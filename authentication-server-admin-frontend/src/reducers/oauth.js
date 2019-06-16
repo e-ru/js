@@ -1,20 +1,19 @@
-import { OAUTH_REQUEST, OAUTH_SUCCESS, OAUTH_FAILURE } from "../constants";
+import { SHOW_OAUTH_WINDOW, OAUTH_REQUEST, OAUTH_SUCCESS, OAUTH_FAILURE } from "../constants";
 
 const initialState = {
   loading: false,
-  result: {},
   error: null,
-  newWindow: false,
-  oauthPayload: {},
+  showOAuthWindow: false,
+  oauthData: {},
 };
 
 export default (state = initialState, action) => {
   console.log("action: ", action);
   switch (action.type) {
-    case "NEW_WINDOW":
+    case SHOW_OAUTH_WINDOW:
       return {
         ...state,
-        newWindow: action.newWindow,
+        showOAuthWindow: action.showOAuthWindow,
       };
     case OAUTH_REQUEST:
       return {
@@ -24,9 +23,8 @@ export default (state = initialState, action) => {
     case OAUTH_SUCCESS:
       return {
         ...state,
-        //   result: action.payload,
         loading: false,
-        oauthPayload: action.payload,
+        oauthData: action.payload,
       };
     case OAUTH_FAILURE:
       return {
