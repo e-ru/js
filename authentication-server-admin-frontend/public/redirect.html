@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Auth-Server-Admin - Redirect</title>
+    </head>
+    <body>
+        <h1>Auth-Server-Admin</h1>
+        <script>
+            // Get name of window which was set by the parent to be the unique request key
+            const requestKey = "code"//window.name
+            console.log("requestKey: ", requestKey)
+            // Update corresponding entry with the redirected url which should contain either authentication_code or failure reason in the query parameter / hash
+            window.localStorage.setItem(requestKey, window.location.href)
+            console.log("href", window.location.href)            
+            window.close()
+        </script>
+    </body>
+</html>
