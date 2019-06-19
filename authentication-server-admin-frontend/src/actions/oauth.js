@@ -4,6 +4,7 @@ import {
   GRANT_TYPE,
   CLIENT_ID,
   REDIRECT_URL,
+  SCOPE,
   SHOW_OAUTH_WINDOW,
   OAUTH_REQUEST,
   OAUTH_SUCCESS,
@@ -20,6 +21,7 @@ const getFormBody = code => {
   formData.append("code", code);
   formData.append("redirect_uri", REDIRECT_URL);
   formData.append("client_id", CLIENT_ID);
+  formData.append("scope", SCOPE);
   return new URLSearchParams(formData);
 };
 
@@ -30,7 +32,7 @@ export const showOAuthLoginWindow = showOAuthWindow => ({
 
 export const retrieveToken = code => ({
   [RSAA]: {
-    endpoint: `${OAUTH_SERVER}/token`,
+    endpoint: `${OAUTH_SERVER}/oauth/token`,
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: getFormBody(code),
