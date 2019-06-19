@@ -1,1 +1,1 @@
-export * from "./oauth";
+export { retrieveToken, showOAuthLoginWindow } from "./oauth";

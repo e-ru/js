@@ -6,9 +6,13 @@ import PropTypes from "prop-types";
 import { AUTHORIZATION_URL } from "../constants";
 import { showOAuthLoginWindow, retrieveToken } from "../actions";
 
+import "./LoginButton.scss";
+
 const LoginButtonComponent = ({ showOAuthWindow, showLoginWindow, getToken }) => (
   <div>
-    <button type="button" onClick={showLoginWindow} />
+    <button type="button" className="login-button" onClick={showLoginWindow}>
+      Login
+    </button>
     {showOAuthWindow ? <NewWindow url={AUTHORIZATION_URL} onUnload={getToken} /> : null}
   </div>
 );
