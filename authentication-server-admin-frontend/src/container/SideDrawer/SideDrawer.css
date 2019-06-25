@@ -45,9 +45,61 @@
   }
 }
 
+.right {
+  /* position: absolute;
+  padding-right: 20px;
+  right: 0px;
+  transition: all 0.5s ease-in-out; */
+}
+
+.left {
+  /* position: absolute;
+  padding-left: 20px;
+  left: 0px;
+  transition: all 0.5s ease-in-out; */
+}
+
+.hide {
+  /* display: none; */
+  animation: fadeIn 1s;
+  /* opacity: 0; */
+  /* transition: all 0.5s ease-in-out; */
+}
+
+.show {
+  animation: fadeIn 1s;
+  /* opacity: 1; */
+  /* transition: all 0.5s ease-in-out; */
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  flex-direction: row-reverse;
+}
+
+.test {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (min-width: 769px) {
   .side-drawer {
-    left: -190px;
+    left: -120px;
     z-index: 100;
     width: 150px;
     padding: 20px;

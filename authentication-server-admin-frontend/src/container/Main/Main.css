@@ -6,11 +6,10 @@
 @media (min-width: 769px) {
   .main {
     position: relative;
-    /* margin-left: 70px; */
+    margin-left: 70px;
     z-index: 0;
     padding: 20px;
-    /* max-width: calc(100% - 0px); */
-    max-width: 100%;
+    max-width: calc(100% - 70px);
     overflow: hidden;
     transition: all 300ms ease-in-out;
   }
