@@ -5,7 +5,6 @@ import {
   CLIENT_ID,
   REDIRECT_URL,
   SCOPE,
-  SHOW_OAUTH_WINDOW,
   OAUTH_REQUEST,
   OAUTH_SUCCESS,
   OAUTH_FAILURE,
@@ -25,12 +24,7 @@ const getFormBody = code => {
   return new URLSearchParams(formData);
 };
 
-export const showOAuthLoginWindow = showOAuthWindow => ({
-  type: SHOW_OAUTH_WINDOW,
-  showOAuthWindow,
-});
-
-export const retrieveToken = code => ({
+const retrieveToken = code => ({
   [RSAA]: {
     endpoint: `${OAUTH_SERVER}/oauth/token`,
     method: "POST",
@@ -46,3 +40,5 @@ export const retrieveToken = code => ({
     ],
   },
 });
+
+export default retrieveToken;
