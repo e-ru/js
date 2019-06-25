@@ -60,16 +60,13 @@
 }
 
 .hide {
-  /* display: none; */
-  animation: fadeIn 1s;
-  /* opacity: 0; */
-  /* transition: all 0.5s ease-in-out; */
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 .show {
-  animation: fadeIn 1s;
-  /* opacity: 1; */
-  /* transition: all 0.5s ease-in-out; */
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .container {
@@ -83,6 +80,15 @@
   justify-content: left;
   flex-direction: row;
   animation: fadeIn 1s;
+}
+
+.test2 {
+  margin-left: 120px;
+  transition: all 0.3s ease-in;
+}
+.test3 {
+  margin-left: 0;
+  transition: all 0.3s ease-in;
 }
 
 @keyframes fadeIn {

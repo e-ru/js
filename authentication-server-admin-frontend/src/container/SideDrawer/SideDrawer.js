@@ -8,8 +8,8 @@ const SideDrawerComponent = ({ sideDrawerOpen }) => (
   <nav className={sideDrawerOpen ? "side-drawer open" : "side-drawer"}>
     <ul>
       <li>
-        <a className={sideDrawerOpen ? "" : "container"} href="/">
-          <span>XX</span>
+        <a href="/">
+          <span className={sideDrawerOpen ? "test3" : "test2"}>XX</span>
           <span className={sideDrawerOpen ? "show" : "hide"}>Client Details</span>
           {/* {sideDrawerOpen ? <span>Client Details</span> : null} */}
         </a>
