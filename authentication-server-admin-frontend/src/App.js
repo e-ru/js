@@ -1,27 +1,46 @@
 import React from "react";
 import { connect } from "react-redux";
-import logo from "./logo.svg";
+import PropTypes from "prop-types";
+// import logo from "./logo.svg";
 import "./App.css";
 
-import LoginButton from "./container/LoginButton";
+import LoginButton from "./container/LoginButton/LoginButton";
+import Toolbar from "./container/Toolbar/Toolbar";
+import SideDrawer from "./container/SideDrawer/SideDrawer";
+import Backdrop from "./container/Backdrop/Backdrop";
+import Main from "./container/Main/Main";
 
-const AppComponent = () => {
+const AppComponent = ({ loggedIn, oAuthError }) => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
+      {loggedIn ? (
+        <div style={{ height: "100%" }}>
+          <Toolbar />
+          <Backdrop />
+          <SideDrawer />
+          <Main />
+        </div>
+      ) : (
         <LoginButton />
-      </header>
+      )}
     </div>
   );
 };
 
-const App = connect()(AppComponent);
+AppComponent.defaultProps = {
+  oAuthError: null,
+};
+
+AppComponent.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  oAuthError: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  loggedIn: true, // state.oauth.loggedIn,
+  oAuthError: state.oauth.error,
+});
+
+const App = connect(mapStateToProps)(AppComponent);
 
 export default App;
