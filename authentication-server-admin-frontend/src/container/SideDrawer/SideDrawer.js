@@ -9,7 +9,7 @@ const SideDrawerComponent = ({ sideDrawerOpen }) => (
     <ul>
       <li>
         <a className={sideDrawerOpen ? "" : "container"} href="/">
-          <span XX </span>
+          <span>XX</span>
           <span className={sideDrawerOpen ? "show" : "hide"}>Client Details</span>
           {/* {sideDrawerOpen ? <span>Client Details</span> : null} */}
         </a>
