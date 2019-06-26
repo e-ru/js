@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import NewWindow from "react-new-window";
 import PropTypes from "prop-types";
+import NewWindow from "react-new-window";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { AUTHORIZATION_URL } from "../../constants";
 import { retrieveToken } from "../../actions";
 
 import "./LoginButton.css";
 
-const LoginButtonComponent = ({ getToken }) => {
+const LoginButtonComponent = ({ loggedIn, location, getToken }) => {
   const [title, setTitle] = useState("Login");
   const [showOAuthWindow, setShowOAuthWindow] = useState(false);
 
-  return (
+  const { from } = location.state || { from: { pathname: "/" } };
+  console.log("from: ", from);
+  return loggedIn ? (
+    <Redirect to={from} />
+  ) : (
     <div>
       <button type="button" className="login-button" onClick={() => setShowOAuthWindow(true)}>
         {title}
@@ -32,7 +37,17 @@ const LoginButtonComponent = ({ getToken }) => {
 };
 
 LoginButtonComponent.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   getToken: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("ownProps: ", ownProps);
+  return {
+    loggedIn: state.oauth.loggedIn,
+    location: ownProps.location,
+  };
 };
 
 const parseHrefForCode = href => (href !== null && href !== undefined ? href.substring(href.indexOf("=") + 1) : null);
@@ -44,9 +59,11 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const LoginButton = connect(
-  null,
-  mapDispatchToProps
-)(LoginButtonComponent);
+const LoginButton = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginButtonComponent)
+);
 
 export default LoginButton;

@@ -1,37 +1,48 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { useMedia } from "use-media";
-// import logo from "./logo.svg";
+import { withRouter, Route, Redirect, Switch } from "react-router-dom";
+
 import "normalize.css";
 import "./App.css";
 
 import LoginButton from "./container/LoginButton/LoginButton";
-import Toolbar from "./container/Toolbar/Toolbar";
-import SideBar from "./container/SideDrawer/SideBar";
-import Backdrop from "./container/Backdrop/Backdrop";
-import Main from "./container/Main/Main";
 
-const AppComponent = ({ loggedIn, sideDrawerOpen, oAuthError }) => {
-  const isMobile = useMedia({ maxWidth: 768 });
+import Main from "./container/Main2/Main";
+
+function PrivateRoute({ loggedIn, component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return loggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              // eslint-disable-next-line react/prop-types
+              state: { from: props.location },
+            }}
+          />
+        );
+      }}
+    />
+  );
+}
+
+PrivateRoute.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  component: PropTypes.any.isRequired,
+};
+
+const AppComponent = ({ loggedIn, oAuthError }) => {
   return (
     <div className="App">
-      {loggedIn ? (
-        <div className={`page${isMobile ? " page--mobile" : ""}`}>
-          <Toolbar />
-          <main
-            className={`main${sideDrawerOpen ? " main--sidebar-open" : ""}${
-              sideDrawerOpen && !isMobile ? " main--break-content" : ""
-            }`}
-          >
-            <SideBar />
-            <Main />
-          </main>
-          <Backdrop />
-        </div>
-      ) : (
-        <LoginButton />
-      )}
+      <Switch>
+        <Route path="/login" component={LoginButton} />
+        <PrivateRoute path="/" component={Main} loggedIn={loggedIn} />
+      </Switch>
     </div>
   );
 };
@@ -42,16 +53,15 @@ AppComponent.defaultProps = {
 
 AppComponent.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  sideDrawerOpen: PropTypes.bool.isRequired,
   oAuthError: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  loggedIn: true, // state.oauth.loggedIn,
+  loggedIn: state.oauth.loggedIn,
   sideDrawerOpen: state.ui.sideDrawerOpen,
   oAuthError: state.oauth.error,
 });
 
-const App = connect(mapStateToProps)(AppComponent);
+const App = withRouter(connect(mapStateToProps)(AppComponent));
 
 export default App;

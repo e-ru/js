@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./SideBar.css";
 
@@ -7,16 +8,22 @@ const SideBar = () => (
     <nav>
       <ul>
         <li className="sidebar__item">
-          <a href="/">
-            <span className="link-icon">&spades;</span>
-            <span className="link-text">Client Details</span>
-          </a>
+          <Link to="/">
+            <span className="link-icon">&#9728;</span>
+            <span className="link-text">Home</span>
+          </Link>
         </li>
         <li className="sidebar__item">
-          <a href="/">
+          <Link to="/client-details">
+            <span className="link-icon">&spades;</span>
+            <span className="link-text">Client Details</span>
+          </Link>
+        </li>
+        <li className="sidebar__item">
+          <Link to="/users">
             <span className="link-icon">&clubs;</span>
             <span className="link-text">Users</span>
-          </a>
+          </Link>
         </li>
         <li className="sidebar__item">
           <a href="/">
