@@ -6,7 +6,7 @@ import { useMedia } from "use-media";
 import Toolbar from "../Toolbar/Toolbar";
 import SideBar from "../SideDrawer/SideBar";
 import Backdrop from "../Backdrop/Backdrop";
-import Content from "../Main/Content";
+import Content from "../Content/Content";
 
 const MainComponent = ({ sideDrawerOpen }) => {
   const isMobile = useMedia({ maxWidth: 768 });

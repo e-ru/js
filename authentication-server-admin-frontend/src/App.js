@@ -8,7 +8,7 @@ import "./App.css";
 
 import LoginButton from "./container/LoginButton/LoginButton";
 
-import Main from "./container/Main2/Main";
+import Main from "./container/Main/Main";
 
 function PrivateRoute({ loggedIn, component: Component, ...rest }) {
   return (
