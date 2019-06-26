@@ -1,12 +1,13 @@
 import React from "react";
 
-import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
+import BarToggleButton from "../SideDrawer/BarToggleButton";
 import "./Toolbar.css";
 
 const Toolbar = () => (
   <header className="toolbar">
-    <nav className="toolbar__navigation">
-      <div className="toolbar__toggle-button">{<DrawerToggleButton />}</div>
+    <BarToggleButton />
+
+    {/* <nav className="toolbar__navigation">
       <div className="toolbar__logo">
         <a href="/">THE LOGO</a>
       </div>
@@ -27,7 +28,7 @@ const Toolbar = () => (
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> */}
   </header>
 );
 

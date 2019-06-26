@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setShowSideDrawer } from "../../actions";
 
-import "./DrawerToggleButton.css";
+import "./BarToggleButton.css";
 
 const DrawerToggleButtonComponent = ({ drawerToggleClickHandler }) => (
   <button type="button" className="toggle-button" onClick={() => drawerToggleClickHandler()}>
+    {/* &#9776; */}
     <div className="toggle-button__line" />
     <div className="toggle-button__line" />
     <div className="toggle-button__line" />

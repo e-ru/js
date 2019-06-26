@@ -1,8 +1,19 @@
+/* .toggle-button {
+  height: 40px;
+  width: 40px;
+  font-size: 1.4em;
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+} */
+
 .toggle-button {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 24px;
+  margin: 16px 0;
   width: 30px;
   background: transparent;
   border: none;
@@ -19,8 +30,4 @@
   width: 30px;
   height: 2px;
   background: white;
-}
-
-#menu-toggle {
-  display: none;
 }
