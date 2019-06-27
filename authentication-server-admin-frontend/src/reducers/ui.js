@@ -1,7 +1,7 @@
 import { TOGGLE_SIDE_DRAWER } from "../constants";
 
 const initialState = {
-  sideDrawerOpen: false,
+  sideDrawerOpen: true,
 };
 
 export default (state = initialState, action) => {

@@ -7,8 +7,6 @@ import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 
-import "./Content.css";
-
 function Index() {
   return <h2>Home</h2>;
 }
