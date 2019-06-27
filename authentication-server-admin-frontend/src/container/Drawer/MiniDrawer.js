@@ -3,18 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 import DrawerOAuthContent from "./DrawerOAuthContent";
-
-import { setShowSideDrawer } from "../../actions";
 
 const drawerWidth = 240;
 
@@ -51,11 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 const MiniDrawerComponent = ({ sideDrawerOpen }) => {
   const classes = useStyles();
-  const theme = useTheme();
-
-  console.log("sideDrawerOpen: ", sideDrawerOpen);
   return (
-    // <div className={classes.root}>
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
@@ -70,15 +58,8 @@ const MiniDrawerComponent = ({ sideDrawerOpen }) => {
       }}
       open={sideDrawerOpen}
     >
-      {/* <div className={classes.toolbar}>
-          <IconButton onClick={drawerToggleClickHandler}>
-            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider /> */}
       <DrawerOAuthContent />
     </Drawer>
-    // </div>
   );
 };
 
