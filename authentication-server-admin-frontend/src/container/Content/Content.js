@@ -1,6 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route, Link } from "react-router-dom";
+
+import clsx from "clsx";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { makeStyles } from "@material-ui/core/styles";
 
 import "./Content.css";
 
@@ -56,12 +61,56 @@ function ClientDetails() {
   );
 }
 
-const Main = () => (
-  <section className="content">
-    <Route path="/client-details" component={ClientDetails} />
-    <Route path="/users" component={Users} />
-    <Route path="/" exact component={Index} />
-  </section>
-);
+const drawerWidth = 240;
+const drawerShrinkWidth = 73;
 
-export default Main;
+const useStyles = makeStyles(theme => ({
+  content: {
+    marginTop: "56px",
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  contentDesktop: {
+    marginLeft: drawerShrinkWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: drawerWidth,
+  },
+}));
+
+const ContentComponent = ({ sideDrawerOpen }) => {
+  const classes = useStyles();
+  const isMobile = useMediaQuery("(max-width:768px)");
+  return (
+    <main
+      className={clsx(classes.content, {
+        [classes.contentShift]: sideDrawerOpen && !isMobile,
+        [classes.contentDesktop]: !isMobile,
+      })}
+    >
+      <Route path="/client-details" component={ClientDetails} />
+      <Route path="/users" component={Users} />
+      <Route path="/" exact component={Index} />
+    </main>
+  );
+};
+
+ContentComponent.propTypes = {
+  sideDrawerOpen: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+  sideDrawerOpen: state.ui.sideDrawerOpen,
+});
+
+const Content = connect(mapStateToProps)(ContentComponent);
+
+export default Content;

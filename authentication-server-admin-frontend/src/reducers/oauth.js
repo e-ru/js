@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   error: null,
   oauthData: {},
-  loggedIn: false,
+  loggedIn: true,
 };
 
 export default (state = initialState, action) => {
