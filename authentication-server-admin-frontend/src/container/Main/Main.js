@@ -4,9 +4,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import ButtonAppBar from "../Toolbar/ButtonAppBar";
-import MiniDrawer from "../MiniDrawer/MiniDrawer";
-import TemporaryDrawer from "../MiniDrawer/TemporaryDrawer";
+import ButtonAppBar from "../Appbar/ButtonAppBar";
+import MiniDrawer from "../Drawer/MiniDrawer";
+import TemporaryDrawer from "../Drawer/TemporaryDrawer";
 import Content from "../Content/Content";
 
 const useStyles = makeStyles(theme => ({
