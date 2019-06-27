@@ -26,16 +26,16 @@ const SideBar = () => (
           </Link>
         </li>
         <li className="sidebar__item">
-          <a href="/">
+          <Link to="/">
             <span className="link-icon">&hearts;</span>
             <span className="link-text">Roles</span>
-          </a>
+          </Link>
         </li>
         <li className="sidebar__item">
-          <a href="/">
+          <Link to="/">
             <span className="link-icon">&diams;</span>
             <span className="link-text">Permissions</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

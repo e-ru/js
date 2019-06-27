@@ -8,6 +8,8 @@ import SideBar from "../SideDrawer/SideBar";
 import Backdrop from "../Backdrop/Backdrop";
 import Content from "../Content/Content";
 
+import "./Main.css";
+
 const MainComponent = ({ sideDrawerOpen }) => {
   const isMobile = useMedia({ maxWidth: 768 });
   return (

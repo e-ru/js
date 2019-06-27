@@ -10,23 +10,20 @@ import { retrieveToken } from "../../actions";
 import "./LoginButton.css";
 
 const LoginButtonComponent = ({ loggedIn, location, getToken }) => {
-  const [title, setTitle] = useState("Login");
   const [showOAuthWindow, setShowOAuthWindow] = useState(false);
-
   const { from } = location.state || { from: { pathname: "/" } };
-  console.log("from: ", from);
+
   return loggedIn ? (
     <Redirect to={from} />
   ) : (
     <div>
       <button type="button" className="login-button" onClick={() => setShowOAuthWindow(true)}>
-        {title}
+        Login
       </button>
       {showOAuthWindow ? (
         <NewWindow
           url={AUTHORIZATION_URL}
           onUnload={() => {
-            setTitle("Logged In");
             setShowOAuthWindow(false);
             getToken();
           }}
@@ -43,7 +40,6 @@ LoginButtonComponent.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("ownProps: ", ownProps);
   return {
     loggedIn: state.oauth.loggedIn,
     location: ownProps.location,
