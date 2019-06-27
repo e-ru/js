@@ -1,41 +1,35 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { useMedia } from "use-media";
 
-import Toolbar from "../Toolbar/Toolbar";
-import SideBar from "../SideDrawer/SideBar";
-import Backdrop from "../Backdrop/Backdrop";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import ButtonAppBar from "../Toolbar/ButtonAppBar";
+import MiniDrawer from "../MiniDrawer/MiniDrawer";
+import TemporaryDrawer from "../MiniDrawer/TemporaryDrawer";
 import Content from "../Content/Content";
 
-import "./Main.css";
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}));
 
-const MainComponent = ({ sideDrawerOpen }) => {
-  const isMobile = useMedia({ maxWidth: 768 });
+const Main = () => {
+  const classes = useStyles();
+  const isMobile = useMediaQuery("(max-width:768px)");
   return (
-    <div className={`page${isMobile ? " page--mobile" : ""}`}>
-      <Toolbar />
-      <main
-        className={`main${sideDrawerOpen ? " main--sidebar-open" : ""}${
-          sideDrawerOpen && !isMobile ? " main--break-content" : ""
-        }`}
-      >
-        <SideBar />
-        <Content />
-      </main>
-      <Backdrop />
+    <div className={classes.root}>
+      <CssBaseline />
+      <ButtonAppBar />
+      {isMobile ? <TemporaryDrawer /> : <MiniDrawer />}
+      <Content />
     </div>
   );
 };
 
-MainComponent.propTypes = {
-  sideDrawerOpen: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = state => ({
-  sideDrawerOpen: state.ui.sideDrawerOpen,
-});
-
-const App = connect(mapStateToProps)(MainComponent);
-
-export default App;
+export default Main;
