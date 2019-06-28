@@ -5,6 +5,7 @@ import {
   CLIENT_ID,
   REDIRECT_URL,
   SCOPE,
+  OAUTH_SET_RANDOM_STATE,
   OAUTH_REQUEST,
   OAUTH_SUCCESS,
   OAUTH_FAILURE,
@@ -24,7 +25,7 @@ const getFormBody = code => {
   return new URLSearchParams(formData);
 };
 
-const retrieveToken = code => ({
+export const retrieveToken = code => ({
   [RSAA]: {
     endpoint: `${OAUTH_SERVER}/oauth/token`,
     method: "POST",
@@ -41,4 +42,7 @@ const retrieveToken = code => ({
   },
 });
 
-export default retrieveToken;
+export const setRandomState = authState => ({
+  type: OAUTH_SET_RANDOM_STATE,
+  authState,
+});
