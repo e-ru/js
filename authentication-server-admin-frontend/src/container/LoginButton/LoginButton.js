@@ -6,6 +6,12 @@ import { withRouter, Redirect } from "react-router-dom";
 
 import { AUTHORIZATION_URL } from "../../constants";
 import { retrieveToken, setRandomState } from "../../actions";
+import {
+  parseHrefForCode,
+  parseHrefForState,
+  generateRandomOAuthState,
+  compareGeneratedWithReceivedState,
+} from "../../utils/oauth";
 
 import "./LoginButton.css";
 
@@ -22,11 +28,7 @@ const LoginButtonComponent = ({ loggedIn, location, setAuthState, getToken }) =>
         type="button"
         className="login-button"
         onClick={() => {
-          setRandomAuthState(
-            Math.random()
-              .toString(36)
-              .substring(2, 15)
-          );
+          setRandomAuthState(generateRandomOAuthState());
           setShowOAuthWindow(true);
         }}
       >
@@ -60,18 +62,19 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const parseHrefForCode = href => (href !== null && href !== undefined ? href.substring(href.indexOf("=") + 1) : null);
+const mapDispatchToProps = {
+  getToken: () => (dispatch, getState) => {
+    const href = window.localStorage.getItem("code");
+    const code = parseHrefForCode(href);
+    const receivedState = parseHrefForState(href);
 
-const mapDispatchToProps = dispatch => ({
-  getToken: () => {
-    const code = parseHrefForCode(window.localStorage.getItem("code"));
-    console.log("code: ", code);
-    if (code !== null) dispatch(retrieveToken(code));
+    if (compareGeneratedWithReceivedState(getState().oauth.authState, receivedState) && code !== null)
+      dispatch(retrieveToken(code));
   },
-  setAuthState: authState => {
+  setAuthState: authState => dispatch => {
     dispatch(setRandomState(authState));
   },
-});
+};
 
 const LoginButton = withRouter(
   connect(
