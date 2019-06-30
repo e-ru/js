@@ -4,6 +4,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+import { MIN_DESKTOP_WIDTH } from "../../constants";
+
 import ButtonAppBar from "../Appbar/ButtonAppBar";
 import MiniDrawer from "../Drawer/MiniDrawer";
 import TemporaryDrawer from "../Drawer/TemporaryDrawer";
@@ -21,12 +23,12 @@ const useStyles = makeStyles(theme => ({
 
 const Main = () => {
   const classes = useStyles();
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   return (
     <div className={classes.root}>
       <CssBaseline />
       <ButtonAppBar />
-      {isMobile ? <TemporaryDrawer /> : <MiniDrawer />}
+      {isDesktop ? <MiniDrawer /> : <TemporaryDrawer />}
       <Content />
     </div>
   );

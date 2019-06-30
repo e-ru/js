@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter, Route, Redirect, Switch } from "react-router-dom";
 
-import "normalize.css";
 import "./App.css";
 
 import LoginButton from "./container/LoginButton/LoginButton";

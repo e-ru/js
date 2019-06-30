@@ -18,6 +18,8 @@ import DetailsIcon from "@material-ui/icons/Notes";
 import RolesIcon from "@material-ui/icons/Wc";
 import PermissionsIcon from "@material-ui/icons/CheckCircleOutline";
 
+import { EXPANDABLE_LIST_ITEM_CLASS } from "../../constants";
+
 const useStyles = makeStyles(theme => ({
   nested: {
     paddingLeft: theme.spacing(4),
@@ -52,7 +54,7 @@ const DrawerOAuthContent = () => {
         </ListItem>
       </NavLink>
       <Divider />
-      <ListItem button onClick={handleClick}>
+      <ListItem className={EXPANDABLE_LIST_ITEM_CLASS} button onClick={handleClick}>
         <ListItemIcon>
           <OAuthIcon />
         </ListItemIcon>

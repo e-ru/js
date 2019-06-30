@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 
+import { EXPANDABLE_LIST_ITEM_CLASS } from "../../constants";
+
 import DrawerOAuthContent from "./DrawerOAuthContent";
 
 import { setShowSideDrawer } from "../../actions";
@@ -19,12 +21,17 @@ const useStyles = makeStyles({
 const TemporaryDrawerComponent = ({ sideDrawerOpen, drawerToggleClickHandler }) => {
   const classes = useStyles();
 
+  const onClickKeyDown = e => {
+    const isExpandleListItem = e.target.closest(`.${EXPANDABLE_LIST_ITEM_CLASS}`);
+    if (!isExpandleListItem) drawerToggleClickHandler(false);
+  };
+
   const leftList = () => (
     <div
       className={classes.list}
       role="presentation"
-      onClick={() => drawerToggleClickHandler(false)}
-      onKeyDown={() => drawerToggleClickHandler(false)}
+      onClick={e => onClickKeyDown(e)}
+      onKeyDown={e => onClickKeyDown(e)}
     >
       <DrawerOAuthContent />
       <Divider />

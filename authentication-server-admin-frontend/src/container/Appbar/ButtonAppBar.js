@@ -15,23 +15,13 @@ import { setShowSideDrawer } from "../../actions";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    minHeight: "56px",
     zIndex: theme.zIndex.drawer + 1,
-    // transition: theme.transitions.create(["width", "margin"], {
-    //   easing: theme.transitions.easing.sharp,
-    //   duration: theme.transitions.duration.leavingScreen,
-    // }),
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-  },
-  toolbar: {
-    // minHeight: "56px",
-    // paddingLeft: "24px",
-    // paddingRight: "24px",
   },
 }));
 
@@ -40,7 +30,7 @@ const ButtonAppBarComponent = ({ drawerToggleClickHandler }) => {
 
   return (
     <AppBar className={clsx(classes.appBar)}>
-      <Toolbar className={clsx(classes.toolbar)}>
+      <Toolbar>
         <IconButton
           onClick={drawerToggleClickHandler}
           edge="start"

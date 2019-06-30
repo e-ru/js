@@ -7,6 +7,8 @@ import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { MIN_DESKTOP_WIDTH, CONTENT_MARGIN_TOP_DESKTOP, CONTENT_MARGIN_TOP_MOBILE } from "../../constants";
+
 function Index() {
   return <h2>Home</h2>;
 }
@@ -64,7 +66,6 @@ const drawerShrinkWidth = 73;
 
 const useStyles = makeStyles(theme => ({
   content: {
-    marginTop: "56px",
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
@@ -73,7 +74,11 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   contentDesktop: {
+    marginTop: CONTENT_MARGIN_TOP_DESKTOP,
     marginLeft: drawerShrinkWidth,
+  },
+  contentMobile: {
+    marginTop: CONTENT_MARGIN_TOP_MOBILE,
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -86,12 +91,13 @@ const useStyles = makeStyles(theme => ({
 
 const ContentComponent = ({ sideDrawerOpen }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   return (
     <main
       className={clsx(classes.content, {
-        [classes.contentShift]: sideDrawerOpen && !isMobile,
-        [classes.contentDesktop]: !isMobile,
+        [classes.contentShift]: sideDrawerOpen && isDesktop,
+        [classes.contentDesktop]: isDesktop,
+        [classes.contentMobile]: !isDesktop,
       })}
     >
       <Route path="/client-details" component={ClientDetails} />

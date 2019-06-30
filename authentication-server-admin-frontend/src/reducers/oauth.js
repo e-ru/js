@@ -4,12 +4,12 @@ const initialState = {
   loading: false,
   error: null,
   oauthData: {},
-  loggedIn: false,
+  loggedIn: true,
   authState: "",
 };
 
 export default (state = initialState, action) => {
-  console.log("action: ", action);
+  // console.log("action: ", action);
   switch (action.type) {
     case OAUTH_SET_RANDOM_STATE:
       return {
