@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
-import { OAUTH_TOKEN_SUCCESS, OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS } from "../constants";
+import { OAUTH_TOKEN_SUCCESS, OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS, OAUTH_SERVER } from "../constants";
 
-import { setOAuthData, logout } from "../actions";
+import { setOAuthData } from "../actions";
 
 export default function createOAuthMiddleware() {
   return store => {
@@ -18,7 +18,7 @@ export default function createOAuthMiddleware() {
         skipAction = true;
       }
       if (action.type === OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS) {
-        store.dispatch(logout());
+        document.location.href = `${OAUTH_SERVER}/logout`;
         skipAction = true;
       }
 

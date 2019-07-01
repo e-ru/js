@@ -14,7 +14,7 @@ import loginPicture from "../../images/login.jpg";
 
 import LoginButton from "./LoginButton";
 
-import { retrieveOAuthTokenKey, revokeRefreshToken } from "../../actions";
+import { retrieveOAuthTokenKey } from "../../actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,25 +36,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SideLoginComponent = ({ loggedIn, oAuthError, retrieveOAuthTokenKeyHandler, revokeRefreshTokenHandler }) => {
+const SideLoginComponent = ({ loggedIn, oAuthError, retrieveOAuthTokenKeyHandler }) => {
   const classes = useStyles();
 
-  // equals compdidmount/compdidupdate
   useEffect(() => {
     if (!loggedIn) retrieveOAuthTokenKeyHandler();
-    else {
-      window.onbeforeunload = e => {
-        const dialogText = "Do you want to quit?";
-        e.returnValue = dialogText;
-        return dialogText;
-      };
-
-      // window.onunload = () => {
-      //   window.open(`http://localhost:8889/test.html?username=${}`, "DescriptiveWindowName", "resizable,scrollbars,status");
-      //   revokeRefreshTokenHandler();
-      //   setTimeout(() => {}, 1000);
-      // };
-    }
   });
 
   return (
@@ -88,7 +74,6 @@ SideLoginComponent.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   oAuthError: PropTypes.string,
   retrieveOAuthTokenKeyHandler: PropTypes.func.isRequired,
-  revokeRefreshTokenHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -96,19 +81,9 @@ const mapStateToProps = state => ({
   oAuthError: state.oauth.error,
 });
 
-const mapDispatchToProps = {
-  revokeRefreshTokenHandler: () => (dispatch, getState) => {
-    console.log("drin");
-    dispatch(
-      revokeRefreshToken(getState().oauth.username, getState().oauth.clientId, getState().oauth.authData.access_token)
-    );
-  },
-  retrieveOAuthTokenKeyHandler: () => dispatch => dispatch(retrieveOAuthTokenKey()),
-};
-
-// const mapDispatchToProps = dispatch => ({
-//   retrieveOAuthTokenKeyHandler: () => dispatch(retrieveOAuthTokenKey()),
-// });
+const mapDispatchToProps = dispatch => ({
+  retrieveOAuthTokenKeyHandler: () => dispatch(retrieveOAuthTokenKey()),
+});
 
 const SideLogin = connect(
   mapStateToProps,

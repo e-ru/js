@@ -5,8 +5,6 @@ import {
   OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
   OAUTH_TOKEN_KEY_SUCCESS,
   OAUTH_TOKEN_KEY_FAILURE,
-  OAUTH_LOGOUT_SUCCESS,
-  OAUTH_LOGOUT_FAILURE,
 } from "../constants";
 
 import { decodeAuthErrorResponse } from "../utils/oauth";
@@ -17,7 +15,7 @@ const initialState = {
   clientId: null,
   error: null,
   authState: "",
-  loggedIn: true,
+  loggedIn: false,
   authData: {},
 };
 
@@ -58,16 +56,6 @@ export default (state = initialState, action) => {
         ...state,
         tokenKey: "",
         error: "Auth server not reachable",
-      };
-    case OAUTH_LOGOUT_SUCCESS:
-      return {
-        ...state,
-        loggedIn: false,
-      };
-    case OAUTH_LOGOUT_FAILURE:
-      return {
-        ...state,
-        error: "Could not logout",
       };
     default:
       return state;

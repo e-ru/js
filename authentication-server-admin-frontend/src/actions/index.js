@@ -1,11 +1,4 @@
-import {
-  setRandomState,
-  retrieveToken,
-  revokeRefreshToken,
-  retrieveOAuthTokenKey,
-  logout,
-  setOAuthData,
-} from "./oauth";
+import { setRandomState, retrieveToken, revokeRefreshToken, retrieveOAuthTokenKey, setOAuthData } from "./oauth";
 import setShowSideDrawer from "./ui";
 import getUsers from "./users";
 
@@ -15,7 +8,6 @@ export {
   retrieveOAuthTokenKey,
   retrieveToken,
   revokeRefreshToken,
-  logout,
   setShowSideDrawer,
   getUsers,
 };

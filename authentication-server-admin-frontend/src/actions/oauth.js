@@ -16,9 +16,6 @@ import {
   OAUTH_TOKEN_KEY_REQUEST,
   OAUTH_TOKEN_KEY_SUCCESS,
   OAUTH_TOKEN_KEY_FAILURE,
-  OAUTH_LOGOUT_REQUEST,
-  OAUTH_LOGOUT_SUCCESS,
-  OAUTH_LOGOUT_FAILURE,
 } from "../constants";
 
 const successPayload = (action, state, res) => {
@@ -79,21 +76,6 @@ export const revokeRefreshToken = (username, clientId, accessToken) => ({
         payload: successPayload,
       },
       OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
-    ],
-  },
-});
-
-export const logout = () => ({
-  [RSAA]: {
-    endpoint: `${OAUTH_SERVER}/logout`,
-    method: "GET",
-    types: [
-      OAUTH_LOGOUT_REQUEST,
-      {
-        type: OAUTH_LOGOUT_SUCCESS,
-        payload: successPayload,
-      },
-      OAUTH_LOGOUT_FAILURE,
     ],
   },
 });
