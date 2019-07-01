@@ -1,42 +1,73 @@
-import { OAUTH_SET_RANDOM_STATE, OAUTH_REQUEST, OAUTH_SUCCESS, OAUTH_FAILURE } from "../constants";
+import {
+  OAUTH_SET_RANDOM_STATE,
+  OAUTH_SET_DATA,
+  OAUTH_TOKEN_FAILURE,
+  OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
+  OAUTH_TOKEN_KEY_SUCCESS,
+  OAUTH_TOKEN_KEY_FAILURE,
+  OAUTH_LOGOUT_SUCCESS,
+  OAUTH_LOGOUT_FAILURE,
+} from "../constants";
+
+import { decodeAuthErrorResponse } from "../utils/oauth";
 
 const initialState = {
-  loading: false,
+  tokenKey: "",
+  username: null,
+  clientId: null,
   error: null,
-  oauthData: {},
-  loggedIn: true,
   authState: "",
+  loggedIn: true,
+  authData: {},
 };
 
 export default (state = initialState, action) => {
-  // console.log("action: ", action);
+  console.log("action: ", action);
   switch (action.type) {
     case OAUTH_SET_RANDOM_STATE:
       return {
         ...state,
         authState: action.authState,
       };
-    case OAUTH_REQUEST:
+    case OAUTH_SET_DATA:
       return {
         ...state,
-        loading: true,
-        loggedIn: false,
-      };
-    case OAUTH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
         loggedIn: true,
-        oauthData: action.payload,
+        authData: action.authData,
+        username: action.username,
+        clientId: action.clientId,
       };
-    case OAUTH_FAILURE:
+    case OAUTH_TOKEN_FAILURE:
       return {
         ...state,
-        loading: false,
         loggedIn: false,
-        error: decodeURI(
-          `${action.payload.response.error} - ${action.payload.response.error_description.replace(/&amp;/g, "&")}`
-        ),
+        error: decodeAuthErrorResponse(action.payload.response.error, action.payload.response.error_description),
+      };
+    case OAUTH_REVOKE_REFRESH_TOKEN_FAILURE:
+      return {
+        ...state,
+        error: decodeAuthErrorResponse(action.payload.response.error, action.payload.response.error_description),
+      };
+    case OAUTH_TOKEN_KEY_SUCCESS:
+      return {
+        ...state,
+        tokenKey: action.payload.value,
+      };
+    case OAUTH_TOKEN_KEY_FAILURE:
+      return {
+        ...state,
+        tokenKey: "",
+        error: "Auth server not reachable",
+      };
+    case OAUTH_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loggedIn: false,
+      };
+    case OAUTH_LOGOUT_FAILURE:
+      return {
+        ...state,
+        error: "Could not logout",
       };
     default:
       return state;
