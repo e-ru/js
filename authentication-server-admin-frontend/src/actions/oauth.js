@@ -6,9 +6,19 @@ import {
   REDIRECT_URL,
   SCOPE,
   OAUTH_SET_RANDOM_STATE,
-  OAUTH_REQUEST,
-  OAUTH_SUCCESS,
-  OAUTH_FAILURE,
+  OAUTH_SET_DATA,
+  OAUTH_TOKEN_REQUEST,
+  OAUTH_TOKEN_SUCCESS,
+  OAUTH_TOKEN_FAILURE,
+  OAUTH_REVOKE_REFRESH_TOKEN_REQUEST,
+  OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS,
+  OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
+  OAUTH_TOKEN_KEY_REQUEST,
+  OAUTH_TOKEN_KEY_SUCCESS,
+  OAUTH_TOKEN_KEY_FAILURE,
+  OAUTH_LOGOUT_REQUEST,
+  OAUTH_LOGOUT_SUCCESS,
+  OAUTH_LOGOUT_FAILURE,
 } from "../constants";
 
 const successPayload = (action, state, res) => {
@@ -32,12 +42,58 @@ export const retrieveToken = code => ({
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: getFormBody(code),
     types: [
-      OAUTH_REQUEST,
+      OAUTH_TOKEN_REQUEST,
       {
-        type: OAUTH_SUCCESS,
+        type: OAUTH_TOKEN_SUCCESS,
         payload: successPayload,
       },
-      OAUTH_FAILURE,
+      OAUTH_TOKEN_FAILURE,
+    ],
+  },
+});
+
+export const retrieveOAuthTokenKey = () => ({
+  [RSAA]: {
+    endpoint: `${OAUTH_SERVER}/oauth/token_key`,
+    method: "GET",
+    types: [
+      OAUTH_TOKEN_KEY_REQUEST,
+      {
+        type: OAUTH_TOKEN_KEY_SUCCESS,
+        payload: successPayload,
+      },
+      OAUTH_TOKEN_KEY_FAILURE,
+    ],
+  },
+});
+
+export const revokeRefreshToken = (username, clientId, accessToken) => ({
+  [RSAA]: {
+    endpoint: `${OAUTH_SERVER}/tokens/refreshTokens?username=${username}&clientid=${clientId}`,
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${accessToken}` },
+    types: [
+      OAUTH_REVOKE_REFRESH_TOKEN_REQUEST,
+      {
+        type: OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS,
+        payload: successPayload,
+      },
+      OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
+    ],
+  },
+});
+
+export const logout = () => ({
+  [RSAA]: {
+    endpoint: `${OAUTH_SERVER}/logout`,
+    method: "GET",
+    types: [
+      OAUTH_LOGOUT_REQUEST,
+      {
+        type: OAUTH_LOGOUT_SUCCESS,
+        payload: successPayload,
+      },
+      OAUTH_LOGOUT_FAILURE,
     ],
   },
 });
@@ -45,4 +101,11 @@ export const retrieveToken = code => ({
 export const setRandomState = authState => ({
   type: OAUTH_SET_RANDOM_STATE,
   authState,
+});
+
+export const setOAuthData = (authData, username, clientId) => ({
+  type: OAUTH_SET_DATA,
+  authData,
+  username,
+  clientId,
 });

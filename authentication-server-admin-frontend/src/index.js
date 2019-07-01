@@ -9,9 +9,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import createOAuthMiddleware from "./middleware/oauthMiddleware";
 import rootReducer from "./reducers";
 
-const store = compose(applyMiddleware(apiMiddleware, thunk))(createStore)(rootReducer);
+const store = compose(applyMiddleware(apiMiddleware, thunk, createOAuthMiddleware()))(createStore)(rootReducer);
 
 ReactDOM.render(
   <Router>

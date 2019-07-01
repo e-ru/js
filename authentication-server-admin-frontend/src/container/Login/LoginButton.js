@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import NewWindow from "react-new-window";
 import { withRouter, Redirect } from "react-router-dom";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 import { AUTHORIZATION_URL } from "../../constants";
 import { retrieveToken, setRandomState } from "../../actions";
 import {
@@ -13,9 +16,14 @@ import {
   compareGeneratedWithReceivedState,
 } from "../../utils/oauth";
 
-import "./LoginButton.css";
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const LoginButtonComponent = ({ loggedIn, location, setAuthState, getToken }) => {
+  const classes = useStyles();
   const [showOAuthWindow, setShowOAuthWindow] = useState(false);
   const [randomAuthState, setRandomAuthState] = useState(false);
   const { from } = location.state || { from: { pathname: "/" } };
@@ -24,16 +32,18 @@ const LoginButtonComponent = ({ loggedIn, location, setAuthState, getToken }) =>
     <Redirect to={from} />
   ) : (
     <div>
-      <button
-        type="button"
-        className="login-button"
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        className={classes.button}
         onClick={() => {
           setRandomAuthState(generateRandomOAuthState());
           setShowOAuthWindow(true);
         }}
       >
         Login
-      </button>
+      </Button>
       {showOAuthWindow ? (
         <NewWindow
           url={`${AUTHORIZATION_URL}&state=${randomAuthState}`}

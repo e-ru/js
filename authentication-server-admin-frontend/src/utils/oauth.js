@@ -17,3 +17,6 @@ export const generateRandomOAuthState = () =>
 
 export const compareGeneratedWithReceivedState = (generatedState, receivedState) =>
   generatedState.localeCompare(receivedState) === 0;
+
+export const decodeAuthErrorResponse = (error, errorDescription) =>
+  decodeURI(`${error} - ${errorDescription.replace(/&amp;/g, "&")}`);
