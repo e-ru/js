@@ -1,23 +1,19 @@
-import jwt from "jsonwebtoken";
-
 import { OAUTH_TOKEN_SUCCESS, OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS, OAUTH_SERVER } from "../constants";
 
-import { setOAuthData } from "../actions";
+import OAuthHandler from "../lib/OAuthHandler";
 
 export default function createOAuthMiddleware() {
   return store => {
-    // add object here
-    // const instance = new Instance(store);
+    const oAuthHandler = new OAuthHandler(store);
     return next => async action => {
       let skipAction = false;
 
       if (action.type === OAUTH_TOKEN_SUCCESS) {
-        const decoded = jwt.verify(action.payload.access_token, store.getState().oauth.tokenKey);
-
-        store.dispatch(setOAuthData(action.payload, decoded.user_name, decoded.client_id));
+        oAuthHandler.storeTokenData(action.payload);
         skipAction = true;
       }
       if (action.type === OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS) {
+        oAuthHandler.removeCookies();
         document.location.href = `${OAUTH_SERVER}/logout`;
         skipAction = true;
       }

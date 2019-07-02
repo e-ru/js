@@ -11,13 +11,9 @@ import MiniDrawer from "../Drawer/MiniDrawer";
 import TemporaryDrawer from "../Drawer/TemporaryDrawer";
 import Content from "../Content/Content";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
 }));
 

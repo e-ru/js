@@ -1,6 +1,6 @@
 import { USERS_GET_REQUEST, USERS_GET_SUCCESS, USERS_GET_FAILURE } from "../constants";
 
-const initialState = {
+export const initialState = {
   loading: false,
   error: null,
   users: [],

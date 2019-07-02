@@ -1,6 +1,6 @@
 import { TOGGLE_SIDE_DRAWER } from "../constants";
 
-const initialState = {
+export const initialState = {
   sideDrawerOpen: true,
 };
 

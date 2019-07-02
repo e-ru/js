@@ -9,7 +9,7 @@ import {
 
 import { decodeAuthErrorResponse } from "../utils/oauth";
 
-const initialState = {
+export const initialState = {
   tokenKey: "",
   username: null,
   clientId: null,

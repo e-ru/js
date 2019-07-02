@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,7 +15,8 @@ import loginPicture from "../../images/login.jpg";
 
 import LoginButton from "./LoginButton";
 
-import { retrieveOAuthTokenKey } from "../../actions";
+import { retrieveOAuthTokenKey, setOAuthData } from "../../actions";
+import { checkCookies } from "../../utils/oauth";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,14 +38,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SideLoginComponent = ({ loggedIn, oAuthError, retrieveOAuthTokenKeyHandler }) => {
+const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthTokenKeyHandler, setOAuthDataHandler }) => {
   const classes = useStyles();
 
   useEffect(() => {
     if (!loggedIn) retrieveOAuthTokenKeyHandler();
   });
 
-  return (
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  return loggedIn || checkCookies(setOAuthDataHandler) ? (
+    <Redirect to={from} />
+  ) : (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -55,7 +61,6 @@ const SideLoginComponent = ({ loggedIn, oAuthError, retrieveOAuthTokenKeyHandler
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          {/* TODO: grey out if server is not reeachable, see token key resp failure in oauth reducer */}
           <LoginButton />
           {oAuthError !== null && oAuthError !== undefined ? (
             <Typography variant="body1">{oAuthError}</Typography>
@@ -66,28 +71,41 @@ const SideLoginComponent = ({ loggedIn, oAuthError, retrieveOAuthTokenKeyHandler
   );
 };
 
-SideLoginComponent.defaultProps = {
+LoginPageComponent.defaultProps = {
   oAuthError: null,
 };
 
-SideLoginComponent.propTypes = {
+LoginPageComponent.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   oAuthError: PropTypes.string,
   retrieveOAuthTokenKeyHandler: PropTypes.func.isRequired,
+  setOAuthDataHandler: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  loggedIn: state.oauth.loggedIn,
-  oAuthError: state.oauth.error,
-});
+const mapStateToProps = (state, ownProps) => {
+  // console.log("login page state: ", state);
+  return {
+    location: ownProps.location,
+    loggedIn: state.oauth.loggedIn,
+    oAuthError: state.oauth.error,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   retrieveOAuthTokenKeyHandler: () => dispatch(retrieveOAuthTokenKey()),
+  setOAuthDataHandler: (oAauthData, username, clientId) => dispatch(setOAuthData(oAauthData, username, clientId)),
+  // concise method notation
+  // retrieveOAuthTokenKeyHandler() {
+  //   dispatch(retrieveOAuthTokenKey());
+  // },
 });
 
-const SideLogin = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SideLoginComponent);
+const LoginPage = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginPageComponent)
+);
 
-export default SideLogin;
+export default LoginPage;

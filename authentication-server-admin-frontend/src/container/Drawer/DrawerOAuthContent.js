@@ -65,8 +65,8 @@ const DrawerOAuthContent = () => {
         <List component="div" disablePadding>
           {oauthLink(classes.nested, "/client-details", "Client Details", <DetailsIcon />)}
           {oauthLink(classes.nested, "/users", "Users", <UsersIcon />)}
-          {oauthLink(classes.nested, "/", "Permissions", <PermissionsIcon />)}
-          {oauthLink(classes.nested, "/", "Roles", <RolesIcon />)}
+          {oauthLink(classes.nested, "/permissions", "Permissions", <PermissionsIcon />)}
+          {oauthLink(classes.nested, "/roles", "Roles", <RolesIcon />)}
         </List>
       </Collapse>
     </List>

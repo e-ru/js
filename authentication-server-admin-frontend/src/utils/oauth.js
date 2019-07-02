@@ -1,3 +1,6 @@
+import Cookies from "universal-cookie";
+import { OAUTH_TOKEN_COOKIE } from "../constants";
+
 export const parseHrefForCode = href => {
   let code = "no-code";
   if (href !== null && href !== undefined) {
@@ -20,3 +23,18 @@ export const compareGeneratedWithReceivedState = (generatedState, receivedState)
 
 export const decodeAuthErrorResponse = (error, errorDescription) =>
   decodeURI(`${error} - ${errorDescription.replace(/&amp;/g, "&")}`);
+
+export const checkCookies = setOAuthDataHandler => {
+  const cookies = new Cookies();
+  const cookie = cookies.get(OAUTH_TOKEN_COOKIE);
+  // console.log("cookie: ", cookie);
+  if (cookie === null || cookie === undefined) return false;
+
+  const { tokenData, username, clientId, expire } = cookie;
+  if (tokenData && username && clientId && expire && expire * 1000 - Date.now() > 0) {
+    setOAuthDataHandler(tokenData, username, clientId);
+    return true;
+  }
+  cookies.remove(OAUTH_TOKEN_COOKIE);
+  return false;
+};

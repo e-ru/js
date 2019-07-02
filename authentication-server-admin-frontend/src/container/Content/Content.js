@@ -9,24 +9,26 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { MIN_DESKTOP_WIDTH, CONTENT_MARGIN_TOP_DESKTOP, CONTENT_MARGIN_TOP_MOBILE } from "../../constants";
 
+import Users from "./Users/Users";
+
 function Index() {
   return <h2>Home</h2>;
 }
 
-function User({ match }) {
-  console.log("User match: ", match);
+function Role({ match }) {
+  console.log("Role match: ", match);
   return <h3>Requested Param: {match.params.id}</h3>;
 }
 
-User.propTypes = {
+Role.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-function Users({ match }) {
-  console.log("Users match: ", match);
+function Roles({ match }) {
+  console.log("Roles match: ", match);
   return (
     <div>
-      <h2>Users</h2>
+      <h2>Roles</h2>
 
       <ul>
         <li>
@@ -37,13 +39,13 @@ function Users({ match }) {
         </li>
       </ul>
 
-      <Route path={`${match.path}/:id`} component={User} />
+      <Route path={`${match.path}/:id`} component={Role} />
       <Route exact path={match.path} render={() => <h3>Please select a topic.</h3>} />
     </div>
   );
 }
 
-Users.propTypes = {
+Roles.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
@@ -102,6 +104,7 @@ const ContentComponent = ({ sideDrawerOpen }) => {
     >
       <Route path="/client-details" component={ClientDetails} />
       <Route path="/users" component={Users} />
+      <Route path="/roles" component={Roles} />
       <Route path="/" exact component={Index} />
     </main>
   );
@@ -111,9 +114,12 @@ ContentComponent.propTypes = {
   sideDrawerOpen: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  sideDrawerOpen: state.ui.sideDrawerOpen,
-});
+const mapStateToProps = state => {
+  // console.log("content state: ", state);
+  return {
+    sideDrawerOpen: state.ui.sideDrawerOpen,
+  };
+};
 
 const Content = connect(mapStateToProps)(ContentComponent);
 

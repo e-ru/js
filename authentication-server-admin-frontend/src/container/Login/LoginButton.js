@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import NewWindow from "react-new-window";
-import { withRouter, Redirect } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -22,21 +21,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginButtonComponent = ({ loggedIn, location, setAuthState, getToken }) => {
+const LoginButtonComponent = ({ oAuthError, setAuthState, getToken }) => {
   const classes = useStyles();
   const [showOAuthWindow, setShowOAuthWindow] = useState(false);
   const [randomAuthState, setRandomAuthState] = useState(false);
-  const { from } = location.state || { from: { pathname: "/" } };
 
-  return loggedIn ? (
-    <Redirect to={from} />
-  ) : (
+  return (
     <div>
       <Button
         fullWidth
         variant="contained"
         color="primary"
         className={classes.button}
+        disabled={oAuthError !== null && oAuthError !== undefined}
         onClick={() => {
           setRandomAuthState(generateRandomOAuthState());
           setShowOAuthWindow(true);
@@ -58,23 +55,24 @@ const LoginButtonComponent = ({ loggedIn, location, setAuthState, getToken }) =>
   );
 };
 
+LoginButtonComponent.defaultProps = {
+  oAuthError: null,
+};
+
 LoginButtonComponent.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
+  oAuthError: PropTypes.string,
   setAuthState: PropTypes.func.isRequired,
   getToken: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    location: ownProps.location,
-    loggedIn: state.oauth.loggedIn,
-  };
-};
+const mapStateToProps = state => ({
+  oAuthError: state.oauth.error,
+});
 
 const mapDispatchToProps = {
   getToken: () => (dispatch, getState) => {
-    const href = window.localStorage.getItem("code");
+    const href = window.localStorage.code;
+    window.localStorage.removeItem("code");
     const code = parseHrefForCode(href);
     const receivedState = parseHrefForState(href);
 
@@ -86,11 +84,9 @@ const mapDispatchToProps = {
   },
 };
 
-const LoginButton = withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(LoginButtonComponent)
-);
+const LoginButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginButtonComponent);
 
 export default LoginButton;
