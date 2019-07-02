@@ -16,9 +16,9 @@ const UsersComponent = ({ users, getUsersHandler }) => {
   const headRows = [
     { id: "name", numeric: false, disablePadding: true, label: "Username" },
     { id: "email", numeric: false, disablePadding: false, label: "E-Mail" },
-    // { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    // { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    // { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+    { id: "enabled", numeric: true, disablePadding: false, label: "Enabled" },
+    { id: "locked", numeric: true, disablePadding: false, label: "Locked" },
+    { id: "expired", numeric: true, disablePadding: false, label: "Expired" },
   ];
 
   const prepareRowData = () => {
