@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import { NavLink } from "react-router-dom";
+
 import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,7 +15,7 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import { MIN_DESKTOP_WIDTH } from "../../../constants";
+import { MIN_DESKTOP_WIDTH, USERS_PATH } from "../../../constants";
 
 import { getUsers, updateUser } from "../../../actions";
 
@@ -47,6 +49,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const textfield = (classes, isDesktop, value, onChange) => (
+  <TextField
+    id="standard-name"
+    label="Name"
+    className={clsx(classes.textField, {
+      [classes.lineExpander]: isDesktop,
+      [classes.textFieldMobile]: !isDesktop,
+    })}
+    value={value}
+    onChange={onChange}
+    margin="normal"
+  />
+);
+
+const switchControl = (classes, checked, onChange, value, label) => (
+  <FormControlLabel
+    className={`${classes.switch} ${classes.lineExpander}`}
+    control={<Switch checked={checked} onChange={onChange} value={value} color="primary" />}
+    label={label}
+  />
+);
+
 const userRestRepInit = {
   username: "",
   email: "",
@@ -79,65 +103,24 @@ const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => 
   return userRestRep ? (
     <Paper className={classes.paper}>
       <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="standard-name"
-          label="Name"
-          className={clsx(classes.textField, {
-            [classes.lineExpander]: isDesktop,
-            [classes.textFieldMobile]: !isDesktop,
-          })}
-          value={userRestRep.username}
-          onChange={handleTextChange("username")}
-          margin="normal"
-        />
-        <TextField
-          id="standard-name"
-          label="E-Mail"
-          className={clsx(classes.textField, {
-            [classes.lineExpander]: isDesktop,
-            [classes.textFieldMobile]: !isDesktop,
-          })}
-          value={userRestRep.email}
-          onChange={handleTextChange("email")}
-          margin="normal"
-        />
+        {textfield(classes, isDesktop, userRestRep.username, handleTextChange("username"))}
+        {textfield(classes, isDesktop, userRestRep.email, handleTextChange("email"))}
         <div className={classes.lineBreak} />
-        <FormControlLabel
-          className={`${classes.switch} ${classes.lineExpander}`}
-          control={
-            <Switch
-              checked={userRestRep.enabled}
-              onChange={handleSwitchChange("enabled")}
-              value="enabled"
-              color="primary"
-            />
-          }
-          label="Enabled"
-        />
-        <FormControlLabel
-          className={`${classes.switch} ${classes.lineExpander}`}
-          control={
-            <Switch
-              checked={userRestRep.accountLocked}
-              onChange={handleSwitchChange("accountLocked")}
-              value="accountLocked"
-              color="primary"
-            />
-          }
-          label="Locked"
-        />
-        <FormControlLabel
-          className={`${classes.switch} ${classes.lineExpander}`}
-          control={
-            <Switch
-              checked={userRestRep.accountExpired}
-              onChange={handleSwitchChange("accountExpired")}
-              value="accountExpired"
-              color="primary"
-            />
-          }
-          label="Expired"
-        />
+        {switchControl(classes, userRestRep.enabled, handleSwitchChange("enabled"), "enabled", "Enabled")}
+        {switchControl(
+          classes,
+          userRestRep.accountLocked,
+          handleSwitchChange("accountLocked"),
+          "accountLocked",
+          "Locked"
+        )}
+        {switchControl(
+          classes,
+          userRestRep.accountExpired,
+          handleSwitchChange("accountExpired"),
+          "accountExpired",
+          "Expired"
+        )}
         <div className={classes.lineBreak} />
         <Button
           variant="contained"
@@ -145,8 +128,10 @@ const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => 
           className={classes.button}
           onClick={() => updateUserHandler(id, userRestRep)}
         >
+          {/* <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}`}> */}
           <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
           Save
+          {/* </NavLink> */}
         </Button>
         <div className={classes.lineExpander} />
         <Button variant="contained" color="secondary" className={classes.button}>

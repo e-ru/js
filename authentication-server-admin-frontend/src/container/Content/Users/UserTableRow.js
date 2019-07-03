@@ -21,6 +21,7 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
     },
     edit: {
       margin: theme.spacing(0, 1),
+      maxHeight: "48px",
     },
   }));
 
