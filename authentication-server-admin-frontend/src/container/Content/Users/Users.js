@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import EnhancedTable from "../../table/EnhancedTable";
-
 import UserTableRow from "./UserTableRow";
 
 import { getUsers } from "../../../actions";
@@ -12,7 +11,7 @@ const UsersComponent = ({ users, getUsersHandler }) => {
   useEffect(() => {
     if (users.length === 0) getUsersHandler();
   });
-  console.log("users: ", users);
+
   const headRows = [
     { id: "name", numeric: false, disablePadding: true, label: "Username" },
     { id: "email", numeric: false, disablePadding: false, label: "E-Mail" },

@@ -23,9 +23,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: decodeURI(
-          `${action.payload.response.error} - ${action.payload.response.error_description.replace(/&amp;/g, "&")}`
-        ),
+        error: "Unable to get users",
       };
     default:
       return state;

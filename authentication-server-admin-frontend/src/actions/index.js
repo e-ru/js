@@ -1,6 +1,6 @@
 import { setRandomState, retrieveToken, revokeRefreshToken, retrieveOAuthTokenKey, setOAuthData } from "./oauth";
 import setShowSideDrawer from "./ui";
-import getUsers from "./users";
+import { getUsers, updateUser } from "./users";
 
 export {
   setRandomState,
@@ -10,4 +10,5 @@ export {
   revokeRefreshToken,
   setShowSideDrawer,
   getUsers,
+  updateUser,
 };

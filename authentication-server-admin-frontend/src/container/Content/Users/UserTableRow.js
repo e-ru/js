@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { NavLink } from "react-router-dom";
+
 import { makeStyles } from "@material-ui/core/styles";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,10 +12,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Create";
 import IconButton from "@material-ui/core/IconButton";
 
+import { USERS_PATH } from "../../../constants";
+
 const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
   const useStyles = makeStyles(theme => ({
     actions: {
-      width: "110px",
+      minWidth: "110px",
     },
     edit: {
       margin: theme.spacing(0, 1),
@@ -22,14 +26,7 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
 
   const classes = useStyles();
   return (
-    <TableRow
-      hover
-      //   onClick={event => handleClick(event, row.name)}
-      role="checkbox"
-      aria-checked={isItemSelected}
-      tabIndex={-1}
-      selected={isItemSelected}
-    >
+    <TableRow hover role="checkbox" aria-checked={isItemSelected} tabIndex={-1} selected={isItemSelected}>
       <TableCell className={classes.actions} padding="checkbox">
         <Checkbox
           onClick={event => handleClick(event, row.name)}
@@ -37,7 +34,9 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
           inputProps={{ "aria-labelledby": labelId }}
         />
         <IconButton className={classes.edit}>
-          <EditIcon />
+          <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}/${row.id}`}>
+            <EditIcon />
+          </NavLink>
         </IconButton>
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">

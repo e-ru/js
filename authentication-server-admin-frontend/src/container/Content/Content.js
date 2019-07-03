@@ -7,9 +7,10 @@ import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { MIN_DESKTOP_WIDTH, CONTENT_MARGIN_TOP_DESKTOP, CONTENT_MARGIN_TOP_MOBILE } from "../../constants";
+import { MIN_DESKTOP_WIDTH, CONTENT_MARGIN_TOP_DESKTOP, CONTENT_MARGIN_TOP_MOBILE, USERS_PATH } from "../../constants";
 
 import Users from "./Users/Users";
+import User from "./Users/User";
 
 function Index() {
   return <h2>Home</h2>;
@@ -63,6 +64,13 @@ function ClientDetails() {
   );
 }
 
+const userRoutes = () => (
+  <div>
+    <Route path="/users" exact component={Users} />
+    <Route path={`${USERS_PATH}/:id`} component={User} />
+  </div>
+);
+
 const drawerWidth = 240;
 const drawerShrinkWidth = 73;
 
@@ -103,7 +111,7 @@ const ContentComponent = ({ sideDrawerOpen }) => {
       })}
     >
       <Route path="/client-details" component={ClientDetails} />
-      <Route path="/users" component={Users} />
+      {userRoutes()}
       <Route path="/roles" component={Roles} />
       <Route path="/" exact component={Index} />
     </main>

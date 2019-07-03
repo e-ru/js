@@ -23,8 +23,6 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component }) 
 
   const dense = false;
 
-  console.log("rows: ", rows);
-
   const useStyles = makeStyles(theme => ({
     paper: {
       width: "100%",
@@ -98,7 +96,6 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component }) 
             {stableSort(rows, getSorting(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
-                console.log("row: ", row);
                 const isItemSelected = isSelected(row.name);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
