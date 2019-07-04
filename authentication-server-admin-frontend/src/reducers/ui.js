@@ -1,7 +1,8 @@
-import { TOGGLE_SIDE_DRAWER } from "../constants";
+import { TOGGLE_SIDE_DRAWER, SHOW_AUTH_WINDOW } from "../constants";
 
 export const initialState = {
   sideDrawerOpen: true,
+  showOAuthWindow: false,
 };
 
 export default (state = initialState, action) => {
@@ -10,6 +11,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         sideDrawerOpen: action.sideDrawerOpen,
+      };
+    case SHOW_AUTH_WINDOW:
+      return {
+        ...state,
+        showOAuthWindow: action.showOAuthWindow,
       };
     default:
       return state;

@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import EnhancedTable from "../../table/EnhancedTable";
+import EnhancedTable from "../../Table/EnhancedTable";
 import UserTableRow from "./UserTableRow";
 
-import { getUsers } from "../../../actions";
-
-const UsersComponent = ({ users, getUsersHandler }) => {
-  useEffect(() => {
-    if (users.length === 0) getUsersHandler();
-  });
-
+const UsersComponent = ({ users }) => {
   const headRows = [
     { id: "name", numeric: false, disablePadding: true, label: "Username" },
     { id: "email", numeric: false, disablePadding: false, label: "E-Mail" },
@@ -36,20 +30,12 @@ const UsersComponent = ({ users, getUsersHandler }) => {
 
 UsersComponent.propTypes = {
   users: PropTypes.array.isRequired,
-  getUsersHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  users: state.users.users,
+  users: state.oauth.users,
 });
 
-const mapDispatchToProps = {
-  getUsersHandler: () => (dispatch, getState) => dispatch(getUsers(getState().oauth.authData.access_token)),
-};
-
-const Users = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersComponent);
+const Users = connect(mapStateToProps)(UsersComponent);
 
 export default Users;

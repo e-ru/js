@@ -5,6 +5,8 @@ import { OAUTH_TOKEN_COOKIE } from "../constants";
 
 import { setOAuthData } from "../actions";
 
+import { requestOAuthUsers } from "../utils/initializer";
+
 class OAuthHandler {
   constructor(store) {
     this.store = store;
@@ -23,6 +25,10 @@ class OAuthHandler {
 
   removeCookies() {
     this.cookies.remove(OAUTH_TOKEN_COOKIE);
+  }
+
+  requestAuthUsers() {
+    requestOAuthUsers(this.store.dispatch, this.store.getState().oauth.authData.access_token);
   }
 }
 

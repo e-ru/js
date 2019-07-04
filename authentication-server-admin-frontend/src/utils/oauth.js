@@ -24,17 +24,30 @@ export const compareGeneratedWithReceivedState = (generatedState, receivedState)
 export const decodeAuthErrorResponse = (error, errorDescription) =>
   decodeURI(`${error} - ${errorDescription.replace(/&amp;/g, "&")}`);
 
-export const checkCookies = setOAuthDataHandler => {
+export const isCookieValid = () => {
   const cookies = new Cookies();
   const cookie = cookies.get(OAUTH_TOKEN_COOKIE);
-  // console.log("cookie: ", cookie);
   if (cookie === null || cookie === undefined) return false;
 
   const { tokenData, username, clientId, expire } = cookie;
   if (tokenData && username && clientId && expire && expire * 1000 - Date.now() > 0) {
-    setOAuthDataHandler(tokenData, username, clientId);
     return true;
   }
-  cookies.remove(OAUTH_TOKEN_COOKIE);
   return false;
+};
+
+export const getTokenDataFromCookie = () => {
+  const cookies = new Cookies();
+  const cookie = cookies.get(OAUTH_TOKEN_COOKIE);
+  const { tokenData, username, clientId } = cookie;
+  return {
+    tokenData,
+    username,
+    clientId,
+  };
+};
+
+export const removeCookie = () => {
+  const cookies = new Cookies();
+  cookies.remove(OAUTH_TOKEN_COOKIE);
 };

@@ -1,14 +1,24 @@
-import { setRandomState, retrieveToken, revokeRefreshToken, retrieveOAuthTokenKey, setOAuthData } from "./oauth";
-import setShowSideDrawer from "./ui";
-import { getUsers, updateUser } from "./users";
+import {
+  setRandomState,
+  retrieveToken,
+  revokeRefreshToken,
+  retrieveOAuthTokenKey,
+  setOAuthData,
+  requestUsers,
+  updateUser,
+  getUsers,
+} from "./oauth";
+import { setShowSideDrawer, showAuthWindow } from "./ui";
 
 export {
   setRandomState,
+  showAuthWindow,
   setOAuthData,
   retrieveOAuthTokenKey,
   retrieveToken,
   revokeRefreshToken,
   setShowSideDrawer,
-  getUsers,
+  requestUsers,
   updateUser,
+  getUsers,
 };

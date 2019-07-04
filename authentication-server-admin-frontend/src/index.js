@@ -9,10 +9,18 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import createPreloadMiddleware from "./middleware/preloadMiddleware";
 import createOAuthMiddleware from "./middleware/oauthMiddleware";
 import rootReducer from "./reducers";
 
-const store = compose(applyMiddleware(apiMiddleware, thunk, createOAuthMiddleware()))(createStore)(rootReducer);
+import { preload } from "./utils/initializer";
+
+const store = compose(applyMiddleware(apiMiddleware, thunk, createOAuthMiddleware(), createPreloadMiddleware()))(
+  createStore
+)(rootReducer);
+
+// preload data
+preload(store.dispatch);
 
 ReactDOM.render(
   <Router>

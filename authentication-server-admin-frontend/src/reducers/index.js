@@ -7,7 +7,7 @@ import ui from "./ui";
 const tmpReducer = combineReducers({
   ui,
   oauth,
-  users,
+  // users,
 });
 
 const rootReducer = (state, action) => {

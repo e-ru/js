@@ -123,7 +123,7 @@ ContentComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log("content state: ", state);
+  console.log("content state: ", state);
   return {
     sideDrawerOpen: state.ui.sideDrawerOpen,
   };

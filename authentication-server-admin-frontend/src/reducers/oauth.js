@@ -5,6 +5,11 @@ import {
   OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
   OAUTH_TOKEN_KEY_SUCCESS,
   OAUTH_TOKEN_KEY_FAILURE,
+  USERS_GET_SUCCESS,
+  USERS_GET_FAILURE,
+  USER_PUT_REQUEST,
+  USER_PUT_SUCCESS,
+  USER_PUT_FAILURE,
 } from "../constants";
 
 import { decodeAuthErrorResponse } from "../utils/oauth";
@@ -17,6 +22,9 @@ export const initialState = {
   authState: "",
   loggedIn: false,
   authData: {},
+  users: [],
+  userUpdated: false,
+  usersRefreshed: false,
 };
 
 export default (state = initialState, action) => {
@@ -56,6 +64,35 @@ export default (state = initialState, action) => {
         ...state,
         tokenKey: "",
         error: "Auth server not reachable",
+      };
+    case USERS_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: action.payload,
+        usersRefreshed: state.userUpdated,
+        userUpdated: false,
+      };
+    case USERS_GET_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: "Unable to get users",
+      };
+    case USER_PUT_REQUEST:
+      return {
+        ...state,
+        userUpdated: false,
+      };
+    case USER_PUT_SUCCESS:
+      return {
+        ...state,
+        userUpdated: true,
+      };
+    case USER_PUT_FAILURE:
+      return {
+        ...state,
+        userUpdated: false,
       };
     default:
       return state;

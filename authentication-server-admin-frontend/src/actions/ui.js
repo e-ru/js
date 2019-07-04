@@ -1,8 +1,11 @@
-import { TOGGLE_SIDE_DRAWER } from "../constants";
+import { TOGGLE_SIDE_DRAWER, SHOW_AUTH_WINDOW } from "../constants";
 
-const setShowSideDrawer = sideDrawerOpen => ({
+export const setShowSideDrawer = sideDrawerOpen => ({
   type: TOGGLE_SIDE_DRAWER,
   sideDrawerOpen,
 });
 
-export default setShowSideDrawer;
+export const showAuthWindow = showOAuthWindow => ({
+  type: SHOW_AUTH_WINDOW,
+  showOAuthWindow,
+});

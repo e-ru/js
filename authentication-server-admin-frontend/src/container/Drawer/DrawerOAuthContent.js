@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,22 +22,24 @@ import PermissionsIcon from "@material-ui/icons/CheckCircleOutline";
 
 import { EXPANDABLE_LIST_ITEM_CLASS } from "../../constants";
 
+import { getUsers } from "../../actions";
+
 const useStyles = makeStyles(theme => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
 }));
 
-const oauthLink = (classname, path, title, icon) => (
+const oauthLink = (classname, path, title, icon, onClickHanlder) => (
   <NavLink style={{ color: "inherit", textDecoration: "none" }} to={path}>
-    <ListItem button className={classname} key={title}>
+    <ListItem button className={classname} key={title} onClick={onClickHanlder && onClickHanlder}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={title} />
     </ListItem>
   </NavLink>
 );
 
-const DrawerOAuthContent = () => {
+const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -64,13 +68,26 @@ const DrawerOAuthContent = () => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {oauthLink(classes.nested, "/client-details", "Client Details", <DetailsIcon />)}
-          {oauthLink(classes.nested, "/users", "Users", <UsersIcon />)}
-          {oauthLink(classes.nested, "/permissions", "Permissions", <PermissionsIcon />)}
+          {oauthLink(classes.nested, "/users", "Users", <UsersIcon />, getUsersHanlder)}
+          {oauthLink(classes.nested, "/permissions", "Permissions", <PermissionsIcon />, handleClick)}
           {oauthLink(classes.nested, "/roles", "Roles", <RolesIcon />)}
         </List>
       </Collapse>
     </List>
   );
 };
+
+DrawerOAuthContentComponent.propTypes = {
+  getUsersHanlder: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  getUsersHanlder: () => dispatch(getUsers()),
+});
+
+const DrawerOAuthContent = connect(
+  null,
+  mapDispatchToProps
+)(DrawerOAuthContentComponent);
 
 export default DrawerOAuthContent;

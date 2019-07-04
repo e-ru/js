@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -79,17 +79,17 @@ const userRestRepInit = {
   accountExpired: false,
 };
 
-const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => {
+const UserComponent = ({ usersRefreshed, users, match, updateUserHandler }) => {
   const [userRestRep, setUserRestRep] = useState(userRestRepInit);
 
   const classes = useStyles();
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   const id = Number(match.params.id);
+  console.log("users: ", users);
 
   useEffect(() => {
-    if (users.length === 0) getUsersHandler();
-    setUserRestRep(users.filter(u => u.id === id)[0] || userRestRepInit);
-  }, [users, getUsersHandler, id]);
+    if (users.length > 0) setUserRestRep(users.filter(u => u.id === id)[0] || userRestRepInit);
+  }, [users, id]);
 
   const handleTextChange = name => event => {
     setUserRestRep({ ...userRestRep, [name]: event.target.value });
@@ -100,7 +100,10 @@ const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => 
   };
 
   console.log("userResp: ", userRestRep);
-  return userRestRep ? (
+  console.log("updated: ", usersRefreshed);
+  return usersRefreshed ? (
+    <Redirect to={USERS_PATH} />
+  ) : (
     <Paper className={classes.paper}>
       <form className={classes.container} noValidate autoComplete="off">
         {textfield(classes, isDesktop, userRestRep.username, handleTextChange("username"))}
@@ -122,17 +125,19 @@ const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => 
           "Expired"
         )}
         <div className={classes.lineBreak} />
+        {/* <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}`}> */}
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => updateUserHandler(id, userRestRep)}
+          onClick={() => {
+            updateUserHandler(id, userRestRep);
+          }}
         >
-          {/* <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}`}> */}
           <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
           Save
-          {/* </NavLink> */}
         </Button>
+        {/* </NavLink> */}
         <div className={classes.lineExpander} />
         <Button variant="contained" color="secondary" className={classes.button}>
           Delete
@@ -140,22 +145,22 @@ const UserComponent = ({ users, match, getUsersHandler, updateUserHandler }) => 
         </Button>
       </form>
     </Paper>
-  ) : null;
+  );
 };
 
 UserComponent.propTypes = {
+  usersRefreshed: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired,
   match: PropTypes.object.isRequired,
-  getUsersHandler: PropTypes.func.isRequired,
   updateUserHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  users: state.users.users,
+  users: state.oauth.users,
+  usersRefreshed: state.oauth.usersRefreshed,
 });
 
 const mapDispatchToProps = {
-  getUsersHandler: () => (dispatch, getState) => dispatch(getUsers(getState().oauth.authData.access_token)),
   updateUserHandler: (id, user) => (dispatch, getState) =>
     dispatch(updateUser(id, user, getState().oauth.authData.access_token)),
 };

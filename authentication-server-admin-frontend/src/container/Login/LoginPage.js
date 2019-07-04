@@ -11,12 +11,13 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
+import { AUTHORIZATION_URL } from "../../constants";
 import loginPicture from "../../images/login.jpg";
 
 import LoginButton from "./LoginButton";
+import AuthWindow from "./AuthWindow";
 
-import { retrieveOAuthTokenKey, setOAuthData } from "../../actions";
-import { checkCookies } from "../../utils/oauth";
+import { retrieveOAuthTokenKey } from "../../actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthTokenKeyHandler, setOAuthDataHandler }) => {
+const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthTokenKeyHandler }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthToken
 
   const { from } = location.state || { from: { pathname: "/" } };
 
-  return loggedIn || checkCookies(setOAuthDataHandler) ? (
+  return loggedIn ? (
     <Redirect to={from} />
   ) : (
     <Grid container component="main" className={classes.root}>
@@ -61,7 +62,8 @@ const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthToken
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <LoginButton />
+          <LoginButton authorizationUrl={AUTHORIZATION_URL} />
+          <AuthWindow authorizationUrl={AUTHORIZATION_URL} />
           {oAuthError !== null && oAuthError !== undefined ? (
             <Typography variant="body1">{oAuthError}</Typography>
           ) : null}
@@ -80,7 +82,6 @@ LoginPageComponent.propTypes = {
   location: PropTypes.object.isRequired,
   oAuthError: PropTypes.string,
   retrieveOAuthTokenKeyHandler: PropTypes.func.isRequired,
-  setOAuthDataHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -94,11 +95,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   retrieveOAuthTokenKeyHandler: () => dispatch(retrieveOAuthTokenKey()),
-  setOAuthDataHandler: (oAauthData, username, clientId) => dispatch(setOAuthData(oAauthData, username, clientId)),
-  // concise method notation
-  // retrieveOAuthTokenKeyHandler() {
-  //   dispatch(retrieveOAuthTokenKey());
-  // },
 });
 
 const LoginPage = withRouter(
