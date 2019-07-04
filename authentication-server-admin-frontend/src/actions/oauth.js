@@ -23,7 +23,7 @@ import {
   USER_PUT_REQUEST,
   USER_PUT_SUCCESS,
   USER_PUT_FAILURE,
-  UPDATE_USER_COMPLETE,
+  USERS_REFRESHED_AFTER_USER_UPDATE,
 } from "../constants";
 
 const successPayload = (action, state, res) => {
@@ -135,4 +135,9 @@ export const updateUser = (id, user, accessToken) => ({
       USER_PUT_FAILURE,
     ],
   },
+});
+
+export const setUsersRefreshedAfterUserUpdate = usersRefreshedAfterUserUpdate => ({
+  type: USERS_REFRESHED_AFTER_USER_UPDATE,
+  usersRefreshedAfterUserUpdate,
 });

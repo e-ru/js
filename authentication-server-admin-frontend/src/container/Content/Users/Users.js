@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 import EnhancedTable from "../../Table/EnhancedTable";
 import UserTableRow from "./UserTableRow";
 
-const UsersComponent = ({ users }) => {
+import { setUsersRefreshedAfterUserUpdate } from "../../../actions";
+
+const UsersComponent = ({ users, refreshResetHandler }) => {
   const headRows = [
     { id: "name", numeric: false, disablePadding: true, label: "Username" },
     { id: "email", numeric: false, disablePadding: false, label: "E-Mail" },
@@ -25,17 +27,33 @@ const UsersComponent = ({ users }) => {
     });
   };
 
-  return <EnhancedTable title="Users" rows={prepareRowData()} headRows={headRows} tableRowComponent={UserTableRow} />;
+  return (
+    <EnhancedTable
+      title="Users"
+      rows={prepareRowData()}
+      headRows={headRows}
+      tableRowComponent={UserTableRow}
+      refreshResetHandler={refreshResetHandler}
+    />
+  );
 };
 
 UsersComponent.propTypes = {
   users: PropTypes.array.isRequired,
+  refreshResetHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   users: state.oauth.users,
 });
 
-const Users = connect(mapStateToProps)(UsersComponent);
+const mapDispatchToProps = dispatch => ({
+  refreshResetHandler: () => dispatch(setUsersRefreshedAfterUserUpdate(false)),
+});
+
+const Users = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UsersComponent);
 
 export default Users;

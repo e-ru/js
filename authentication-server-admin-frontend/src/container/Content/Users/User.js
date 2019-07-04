@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { NavLink, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import clsx from "clsx";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -17,7 +17,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import { MIN_DESKTOP_WIDTH, USERS_PATH } from "../../../constants";
 
-import { getUsers, updateUser } from "../../../actions";
+import { updateUser } from "../../../actions";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -79,13 +79,12 @@ const userRestRepInit = {
   accountExpired: false,
 };
 
-const UserComponent = ({ usersRefreshed, users, match, updateUserHandler }) => {
+const UserComponent = ({ usersRefreshedAfterUserUpdate, users, match, updateUserHandler }) => {
   const [userRestRep, setUserRestRep] = useState(userRestRepInit);
 
   const classes = useStyles();
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   const id = Number(match.params.id);
-  console.log("users: ", users);
 
   useEffect(() => {
     if (users.length > 0) setUserRestRep(users.filter(u => u.id === id)[0] || userRestRepInit);
@@ -99,9 +98,7 @@ const UserComponent = ({ usersRefreshed, users, match, updateUserHandler }) => {
     setUserRestRep({ ...userRestRep, [name]: event.target.checked });
   };
 
-  console.log("userResp: ", userRestRep);
-  console.log("updated: ", usersRefreshed);
-  return usersRefreshed ? (
+  return usersRefreshedAfterUserUpdate ? (
     <Redirect to={USERS_PATH} />
   ) : (
     <Paper className={classes.paper}>
@@ -125,19 +122,15 @@ const UserComponent = ({ usersRefreshed, users, match, updateUserHandler }) => {
           "Expired"
         )}
         <div className={classes.lineBreak} />
-        {/* <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}`}> */}
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => {
-            updateUserHandler(id, userRestRep);
-          }}
+          onClick={() => updateUserHandler(id, userRestRep)}
         >
           <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
           Save
         </Button>
-        {/* </NavLink> */}
         <div className={classes.lineExpander} />
         <Button variant="contained" color="secondary" className={classes.button}>
           Delete
@@ -149,7 +142,7 @@ const UserComponent = ({ usersRefreshed, users, match, updateUserHandler }) => {
 };
 
 UserComponent.propTypes = {
-  usersRefreshed: PropTypes.bool.isRequired,
+  usersRefreshedAfterUserUpdate: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired,
   match: PropTypes.object.isRequired,
   updateUserHandler: PropTypes.func.isRequired,
@@ -157,7 +150,7 @@ UserComponent.propTypes = {
 
 const mapStateToProps = state => ({
   users: state.oauth.users,
-  usersRefreshed: state.oauth.usersRefreshed,
+  usersRefreshedAfterUserUpdate: state.oauth.usersRefreshedAfterUserUpdate,
 });
 
 const mapDispatchToProps = {

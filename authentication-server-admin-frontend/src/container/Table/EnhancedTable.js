@@ -14,7 +14,17 @@ import EnhancedTableHead from "./EnhancedTableHead";
 
 import { stableSort, getSorting } from "../../utils/table";
 
-const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component }) => {
+const useStyles = makeStyles(theme => ({
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  tableWrapper: {
+    overflowX: "auto",
+  },
+}));
+
+const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component, refreshResetHandler }) => {
   const [selected, setSelected] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("username");
@@ -22,16 +32,6 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component }) 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const dense = false;
-
-  const useStyles = makeStyles(theme => ({
-    paper: {
-      width: "100%",
-      marginBottom: theme.spacing(2),
-    },
-    tableWrapper: {
-      overflowX: "auto",
-    },
-  }));
 
   function handleSelectAllClick(event) {
     if (event.target.checked) {
@@ -105,6 +105,7 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component }) 
                     isItemSelected={isItemSelected}
                     labelId={labelId}
                     handleClick={handleClick}
+                    refreshResetHandler={refreshResetHandler}
                   />
                 );
               })}
@@ -140,6 +141,7 @@ EnhancedTable.propTypes = {
   rows: PropTypes.array.isRequired,
   headRows: PropTypes.array.isRequired,
   tableRowComponent: PropTypes.func.isRequired,
+  refreshResetHandler: PropTypes.func.isRequired,
 };
 
 export default EnhancedTable;

@@ -7,9 +7,7 @@ import {
   OAUTH_TOKEN_KEY_FAILURE,
   USERS_GET_SUCCESS,
   USERS_GET_FAILURE,
-  USER_PUT_REQUEST,
-  USER_PUT_SUCCESS,
-  USER_PUT_FAILURE,
+  USERS_REFRESHED_AFTER_USER_UPDATE,
 } from "../constants";
 
 import { decodeAuthErrorResponse } from "../utils/oauth";
@@ -23,8 +21,6 @@ export const initialState = {
   loggedIn: false,
   authData: {},
   users: [],
-  userUpdated: false,
-  usersRefreshed: false,
 };
 
 export default (state = initialState, action) => {
@@ -70,8 +66,6 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         users: action.payload,
-        usersRefreshed: state.userUpdated,
-        userUpdated: false,
       };
     case USERS_GET_FAILURE:
       return {
@@ -79,20 +73,10 @@ export default (state = initialState, action) => {
         loading: false,
         error: "Unable to get users",
       };
-    case USER_PUT_REQUEST:
+    case USERS_REFRESHED_AFTER_USER_UPDATE:
       return {
         ...state,
-        userUpdated: false,
-      };
-    case USER_PUT_SUCCESS:
-      return {
-        ...state,
-        userUpdated: true,
-      };
-    case USER_PUT_FAILURE:
-      return {
-        ...state,
-        userUpdated: false,
+        usersRefreshedAfterUserUpdate: action.usersRefreshedAfterUserUpdate,
       };
     default:
       return state;

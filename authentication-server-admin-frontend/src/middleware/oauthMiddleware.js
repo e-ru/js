@@ -4,6 +4,7 @@ import {
   OAUTH_SERVER,
   GET_USERS,
   USER_PUT_SUCCESS,
+  USERS_GET_SUCCESS,
 } from "../constants";
 
 import OAuthHandler from "../lib/OAuthHandler";
@@ -28,8 +29,12 @@ export default function createOAuthMiddleware() {
         skipAction = true;
       }
       if (action.type === USER_PUT_SUCCESS) {
+        oAuthHandler.userUpdated = true;
         oAuthHandler.requestAuthUsers();
-        // skipAction = true;
+        skipAction = true;
+      }
+      if (action.type === USERS_GET_SUCCESS) {
+        oAuthHandler.refreshAfterUpdateState();
       }
 
       if (!skipAction) next(action);

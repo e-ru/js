@@ -14,17 +14,17 @@ import IconButton from "@material-ui/core/IconButton";
 
 import { USERS_PATH } from "../../../constants";
 
-const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
-  const useStyles = makeStyles(theme => ({
-    actions: {
-      minWidth: "110px",
-    },
-    edit: {
-      margin: theme.spacing(0, 1),
-      maxHeight: "48px",
-    },
-  }));
+const useStyles = makeStyles(theme => ({
+  actions: {
+    minWidth: "110px",
+  },
+  edit: {
+    margin: theme.spacing(0, 1),
+    maxHeight: "48px",
+  },
+}));
 
+const UserTableRow = ({ row, isItemSelected, labelId, handleClick, refreshResetHandler }) => {
   const classes = useStyles();
   return (
     <TableRow hover role="checkbox" aria-checked={isItemSelected} tabIndex={-1} selected={isItemSelected}>
@@ -34,7 +34,7 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
           checked={isItemSelected}
           inputProps={{ "aria-labelledby": labelId }}
         />
-        <IconButton className={classes.edit}>
+        <IconButton className={classes.edit} onClick={() => refreshResetHandler(false)}>
           <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${USERS_PATH}/${row.id}`}>
             <EditIcon />
           </NavLink>
@@ -56,6 +56,7 @@ UserTableRow.propTypes = {
   isItemSelected: PropTypes.bool.isRequired,
   labelId: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
+  refreshResetHandler: PropTypes.func.isRequired,
 };
 
 export default UserTableRow;

@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 
 import { OAUTH_TOKEN_COOKIE } from "../constants";
 
-import { setOAuthData } from "../actions";
+import { setOAuthData, setUsersRefreshedAfterUserUpdate } from "../actions";
 
 import { requestOAuthUsers } from "../utils/initializer";
 
@@ -11,6 +11,16 @@ class OAuthHandler {
   constructor(store) {
     this.store = store;
     this.cookies = new Cookies();
+
+    this._userUpdated = false;
+  }
+
+  set userUpdated(userUpdated) {
+    this._userUpdated = userUpdated;
+  }
+
+  get userUpdated() {
+    return this._userUpdated;
   }
 
   storeTokenData(tokenData) {
@@ -29,6 +39,13 @@ class OAuthHandler {
 
   requestAuthUsers() {
     requestOAuthUsers(this.store.dispatch, this.store.getState().oauth.authData.access_token);
+  }
+
+  refreshAfterUpdateState() {
+    if (this.userUpdated) {
+      this.userUpdated = false;
+      this.store.dispatch(setUsersRefreshedAfterUserUpdate(true));
+    }
   }
 }
 

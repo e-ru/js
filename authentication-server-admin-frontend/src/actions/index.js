@@ -7,6 +7,7 @@ import {
   requestUsers,
   updateUser,
   getUsers,
+  setUsersRefreshedAfterUserUpdate,
 } from "./oauth";
 import { setShowSideDrawer, showAuthWindow } from "./ui";
 
@@ -21,4 +22,5 @@ export {
   requestUsers,
   updateUser,
   getUsers,
+  setUsersRefreshedAfterUserUpdate,
 };
