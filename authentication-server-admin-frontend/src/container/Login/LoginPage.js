@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter, Redirect } from "react-router-dom";
@@ -16,8 +16,6 @@ import loginPicture from "../../images/login.jpg";
 
 import LoginButton from "./LoginButton";
 import AuthWindow from "./AuthWindow";
-
-import { retrieveOAuthTokenKey } from "../../actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,12 +37,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthTokenKeyHandler }) => {
+export const LoginPageComponent = ({ loggedIn, location, oAuthError }) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    if (!loggedIn) retrieveOAuthTokenKeyHandler();
-  });
 
   const { from } = location.state || { from: { pathname: "/" } };
 
@@ -62,11 +56,9 @@ const LoginPageComponent = ({ loggedIn, location, oAuthError, retrieveOAuthToken
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <LoginButton authorizationUrl={AUTHORIZATION_URL} />
+          <LoginButton />
           <AuthWindow authorizationUrl={AUTHORIZATION_URL} />
-          {oAuthError !== null && oAuthError !== undefined ? (
-            <Typography variant="body1">{oAuthError}</Typography>
-          ) : null}
+          {oAuthError && <Typography variant="body1">{oAuthError}</Typography>}
         </div>
       </Grid>
     </Grid>
@@ -81,7 +73,6 @@ LoginPageComponent.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   oAuthError: PropTypes.string,
-  retrieveOAuthTokenKeyHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -93,15 +84,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  retrieveOAuthTokenKeyHandler: () => dispatch(retrieveOAuthTokenKey()),
-});
-
-const LoginPage = withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(LoginPageComponent)
-);
+const LoginPage = withRouter(connect(mapStateToProps)(LoginPageComponent));
 
 export default LoginPage;

@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContentComponent = ({ sideDrawerOpen }) => {
+export const ContentComponent = ({ sideDrawerOpen }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   return (
@@ -123,7 +123,7 @@ ContentComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log("content state: ", state);
+  // console.log("content state: ", state);
   return {
     sideDrawerOpen: state.ui.sideDrawerOpen,
   };

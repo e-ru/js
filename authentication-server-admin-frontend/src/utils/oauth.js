@@ -24,6 +24,11 @@ export const compareGeneratedWithReceivedState = (generatedState, receivedState)
 export const decodeAuthErrorResponse = (error, errorDescription) =>
   decodeURI(`${error} - ${errorDescription.replace(/&amp;/g, "&")}`);
 
+export const setTokenDataToCookie = tokenData => {
+  const cookies = new Cookies();
+  cookies.set(OAUTH_TOKEN_COOKIE, tokenData);
+};
+
 export const isCookieValid = () => {
   const cookies = new Cookies();
   const cookie = cookies.get(OAUTH_TOKEN_COOKIE);

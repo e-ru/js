@@ -21,6 +21,7 @@ export const initialState = {
   loggedIn: false,
   authData: {},
   users: [],
+  usersRefreshedAfterUserUpdate: false,
 };
 
 export default (state = initialState, action) => {

@@ -1,16 +1,13 @@
 import jwt from "jsonwebtoken";
-import Cookies from "universal-cookie";
-
-import { OAUTH_TOKEN_COOKIE } from "../constants";
 
 import { setOAuthData, setUsersRefreshedAfterUserUpdate } from "../actions";
 
 import { requestOAuthUsers } from "../utils/initializer";
+import { setTokenDataToCookie, removeCookie } from "../utils/oauth";
 
 class OAuthHandler {
   constructor(store) {
     this.store = store;
-    this.cookies = new Cookies();
 
     this._userUpdated = false;
   }
@@ -30,11 +27,8 @@ class OAuthHandler {
     const expire = decoded.exp;
 
     this.store.dispatch(setOAuthData(tokenData, username, clientId));
-    this.cookies.set(OAUTH_TOKEN_COOKIE, { tokenData, username, clientId, expire });
-  }
-
-  removeCookies() {
-    this.cookies.remove(OAUTH_TOKEN_COOKIE);
+    // dont store sensible information local - useable for local developement
+    // setTokenDataToCookie({ tokenData, username, clientId, expire });
   }
 
   requestAuthUsers() {
@@ -46,6 +40,10 @@ class OAuthHandler {
       this.userUpdated = false;
       this.store.dispatch(setUsersRefreshedAfterUserUpdate(true));
     }
+  }
+
+  static removeCookie() {
+    removeCookie();
   }
 }
 

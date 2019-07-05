@@ -9,35 +9,35 @@ import {
 
 import OAuthHandler from "../lib/OAuthHandler";
 
-export default function createOAuthMiddleware() {
-  return store => {
-    const oAuthHandler = new OAuthHandler(store);
-    return next => async action => {
-      let skipAction = false;
+const oAuthMiddleware = store => {
+  const oAuthHandler = new OAuthHandler(store);
+  return next => async action => {
+    let skipAction = false;
 
-      if (action.type === OAUTH_TOKEN_SUCCESS) {
-        oAuthHandler.storeTokenData(action.payload);
-        skipAction = true;
-      }
-      if (action.type === OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS) {
-        oAuthHandler.removeCookies();
-        document.location.href = `${OAUTH_SERVER}/logout`;
-        skipAction = true;
-      }
-      if (action.type === GET_USERS) {
-        oAuthHandler.requestAuthUsers();
-        skipAction = true;
-      }
-      if (action.type === USER_PUT_SUCCESS) {
-        oAuthHandler.userUpdated = true;
-        oAuthHandler.requestAuthUsers();
-        skipAction = true;
-      }
-      if (action.type === USERS_GET_SUCCESS) {
-        oAuthHandler.refreshAfterUpdateState();
-      }
+    if (action.type === OAUTH_TOKEN_SUCCESS) {
+      oAuthHandler.storeTokenData(action.payload);
+      skipAction = true;
+    }
+    if (action.type === OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS) {
+      OAuthHandler.removeCookie();
+      document.location.href = `${OAUTH_SERVER}/logout`;
+      skipAction = true;
+    }
+    if (action.type === GET_USERS) {
+      oAuthHandler.requestAuthUsers();
+      skipAction = true;
+    }
+    if (action.type === USER_PUT_SUCCESS) {
+      oAuthHandler.userUpdated = true;
+      oAuthHandler.requestAuthUsers();
+      skipAction = true;
+    }
+    if (action.type === USERS_GET_SUCCESS) {
+      oAuthHandler.refreshAfterUpdateState();
+    }
 
-      if (!skipAction) next(action);
-    };
+    if (!skipAction) next(action);
   };
-}
+};
+
+export default oAuthMiddleware;

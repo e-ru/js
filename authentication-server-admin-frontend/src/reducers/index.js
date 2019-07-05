@@ -9,7 +9,7 @@ const tmpReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  // here you could manipulate state directly
+  // here you could manipulate the state directly
   return tmpReducer(state, action);
 };
 

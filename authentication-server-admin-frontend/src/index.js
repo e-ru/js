@@ -9,15 +9,15 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import createPreloadMiddleware from "./middleware/preloadMiddleware";
-import createOAuthMiddleware from "./middleware/oauthMiddleware";
+import preloadMiddleware from "./middleware/preloadMiddleware";
+import oAuthMiddleware from "./middleware/oauthMiddleware";
 import rootReducer from "./reducers";
 
 import { preload } from "./utils/initializer";
 
-const store = compose(applyMiddleware(apiMiddleware, thunk, createOAuthMiddleware(), createPreloadMiddleware()))(
-  createStore
-)(rootReducer);
+const store = compose(applyMiddleware(apiMiddleware, thunk, oAuthMiddleware, preloadMiddleware))(createStore)(
+  rootReducer
+);
 
 // preload data
 preload(store.dispatch);

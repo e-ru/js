@@ -39,14 +39,13 @@ const oauthLink = (classname, path, title, icon, onClickHanlder) => (
   </NavLink>
 );
 
-const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
+export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
   function handleClick() {
     setOpen(!open);
   }
-
   return (
     <List>
       <NavLink style={{ color: "inherit", textDecoration: "none" }} to="/">
