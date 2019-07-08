@@ -16,6 +16,7 @@ import {
   OAUTH_TOKEN_KEY_REQUEST,
   OAUTH_TOKEN_KEY_SUCCESS,
   OAUTH_TOKEN_KEY_FAILURE,
+  OAUTH_ADMIN_SERVER,
   GET_USERS,
   USERS_GET_REQUEST,
   USERS_GET_SUCCESS,
@@ -106,7 +107,7 @@ export const getUsers = () => ({
 
 export const requestUsers = accessToken => ({
   [RSAA]: {
-    endpoint: `${OAUTH_SERVER}/admin/users`,
+    endpoint: `${OAUTH_ADMIN_SERVER}/admin/users`,
     method: "GET",
     headers: { Authorization: "Bearer " + accessToken },
     types: [
@@ -122,7 +123,7 @@ export const requestUsers = accessToken => ({
 
 export const updateUser = (id, user, accessToken) => ({
   [RSAA]: {
-    endpoint: `${OAUTH_SERVER}/admin/users/${id}`,
+    endpoint: `${OAUTH_ADMIN_SERVER}/admin/users/${id}`,
     method: "PUT",
     headers: { Authorization: "Bearer " + accessToken, "Content-type": "application/json" },
     body: JSON.stringify(user),

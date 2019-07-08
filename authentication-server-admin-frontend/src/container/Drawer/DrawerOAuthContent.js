@@ -31,8 +31,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const oauthLink = (classname, path, title, icon, onClickHanlder) => (
-  <NavLink style={{ color: "inherit", textDecoration: "none" }} to={path}>
-    <ListItem button className={classname} key={title} onClick={onClickHanlder && onClickHanlder}>
+  <NavLink style={{ color: "inherit", textDecoration: "none" }} to={path} onClick={onClickHanlder && onClickHanlder}>
+    <ListItem button className={classname} key={title} /* onClick={onClickHanlder && onClickHanlder} */>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={title} />
     </ListItem>

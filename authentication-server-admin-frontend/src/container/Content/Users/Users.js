@@ -17,14 +17,16 @@ const UsersComponent = ({ users, refreshResetHandler }) => {
   ];
 
   const prepareRowData = () => {
-    return users.map(user => {
-      const row = {
-        ...user,
-        name: user.username,
-      };
-      delete row.username;
-      return row;
-    });
+    return users
+      ? users.map(user => {
+          const row = {
+            ...user,
+            name: user.username,
+          };
+          delete row.username;
+          return row;
+        })
+      : [];
   };
 
   return (
@@ -38,8 +40,12 @@ const UsersComponent = ({ users, refreshResetHandler }) => {
   );
 };
 
+UsersComponent.defaultProps = {
+  users: null,
+};
+
 UsersComponent.propTypes = {
-  users: PropTypes.array.isRequired,
+  users: PropTypes.array,
   refreshResetHandler: PropTypes.func.isRequired,
 };
 
