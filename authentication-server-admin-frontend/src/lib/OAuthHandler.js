@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { setOAuthData, setUsersRefreshedAfterUserUpdate } from "../actions";
 
 import { requestOAuthUsers } from "../utils/initializer";
-import { setTokenDataToCookie, removeCookie } from "../utils/oauth";
 
 class OAuthHandler {
   constructor(store) {
@@ -24,11 +23,8 @@ class OAuthHandler {
     const decoded = jwt.verify(tokenData.access_token, this.store.getState().oauth.tokenKey);
     const username = decoded.user_name;
     const clientId = decoded.client_id;
-    const expire = decoded.exp;
 
     this.store.dispatch(setOAuthData(tokenData, username, clientId));
-    // dont store sensible information local - useable for local developement
-    // setTokenDataToCookie({ tokenData, username, clientId, expire });
   }
 
   requestAuthUsers() {
@@ -40,10 +36,6 @@ class OAuthHandler {
       this.userUpdated = false;
       this.store.dispatch(setUsersRefreshedAfterUserUpdate(true));
     }
-  }
-
-  static removeCookie() {
-    removeCookie();
   }
 }
 

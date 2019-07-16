@@ -1,6 +1,3 @@
-import Cookies from "universal-cookie";
-import { OAUTH_TOKEN_COOKIE } from "../constants";
-
 export const parseHrefForCode = href => {
   let code = "no-code";
   if (href !== null && href !== undefined) {
@@ -23,36 +20,3 @@ export const compareGeneratedWithReceivedState = (generatedState, receivedState)
 
 export const decodeAuthErrorResponse = (error, errorDescription) =>
   decodeURI(`${error} - ${errorDescription.replace(/&amp;/g, "&")}`);
-
-export const setTokenDataToCookie = tokenData => {
-  const cookies = new Cookies();
-  cookies.set(OAUTH_TOKEN_COOKIE, tokenData);
-};
-
-export const isCookieValid = () => {
-  const cookies = new Cookies();
-  const cookie = cookies.get(OAUTH_TOKEN_COOKIE);
-  if (cookie === null || cookie === undefined) return false;
-
-  const { tokenData, username, clientId, expire } = cookie;
-  if (tokenData && username && clientId && expire && expire * 1000 - Date.now() > 0) {
-    return true;
-  }
-  return false;
-};
-
-export const getTokenDataFromCookie = () => {
-  const cookies = new Cookies();
-  const cookie = cookies.get(OAUTH_TOKEN_COOKIE);
-  const { tokenData, username, clientId } = cookie;
-  return {
-    tokenData,
-    username,
-    clientId,
-  };
-};
-
-export const removeCookie = () => {
-  const cookies = new Cookies();
-  cookies.remove(OAUTH_TOKEN_COOKIE);
-};

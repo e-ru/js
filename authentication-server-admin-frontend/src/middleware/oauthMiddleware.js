@@ -19,7 +19,6 @@ const oAuthMiddleware = store => {
       skipAction = true;
     }
     if (action.type === OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS) {
-      OAuthHandler.removeCookie();
       document.location.href = `${OAUTH_SERVER}/logout`;
       skipAction = true;
     }
