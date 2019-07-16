@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+matrix:
+  include:
+    - before_script:
+      - "cd authentication-server-admin-frontend"
+    script:
+      - npm test
+      - npm run build
+on:
+  branch: master
