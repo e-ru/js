@@ -8,6 +8,7 @@ matrix:
   include:
     - before_script:
         - "cd authentication-server-admin-frontend"
+        - npm i
       script:
         - npm test
         - npm run build
