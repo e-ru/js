@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginButtonComponent = ({ oAuthError, showAuthWindowHandler }) => {
+export const LoginButtonComponent = ({ oAuthError, showAuthWindowHandler }) => {
   const classes = useStyles();
   return (
     <Button
