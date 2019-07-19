@@ -25,13 +25,14 @@ const mockStore = configureStore(middlewares);
 // simple smoke test
 it("renders without crashing", () => {
   const store = mockStore(initialState);
-  shallow(
+  const app = shallow(
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>
   );
+  expect(app).toMatchSnapshot();
 });
 
 describe("App using memory router", () => {
