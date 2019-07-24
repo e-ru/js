@@ -9,8 +9,8 @@ import Collapse from "@material-ui/core/Collapse";
 
 import HomeIcon from "@material-ui/icons/Home";
 
-import ButtonListItem from "components/src/components/common/List/ButtonListItem";
-import ExpandableButtonListItem from "components/src/components/common/List/ExpandableButtonListItem";
+import ButtonListItem from "@e-ru/components/src/components/common/List/ButtonListItem"; // "components/src/components/common/List/ButtonListItem";
+import ExpandableButtonListItem from "@e-ru/components/src/components/common/List/ExpandableButtonListItem";
 
 import OAuthIcon from "@material-ui/icons/VpnKey";
 import UsersIcon from "@material-ui/icons/People";
