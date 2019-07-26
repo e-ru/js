@@ -13,14 +13,9 @@ import preloadMiddleware from "./middleware/preloadMiddleware";
 import oAuthMiddleware from "./middleware/oauthMiddleware";
 import rootReducer from "./reducers";
 
-import { preload } from "./utils/initializer";
-
 const store = compose(applyMiddleware(apiMiddleware, thunk, oAuthMiddleware, preloadMiddleware))(createStore)(
   rootReducer
 );
-
-// preload data
-preload(store.dispatch);
 
 ReactDOM.render(
   <Router>

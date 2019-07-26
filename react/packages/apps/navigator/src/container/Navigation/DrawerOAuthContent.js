@@ -24,8 +24,14 @@ export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
     setOpen(!open);
   }
   return [
-    <ExpandableButtonListItem title="OAuth" icon={<OAuthIcon />} open={open} handleClick={handleClick} />,
-    <Collapse in={open} timeout="auto" unmountOnExit>
+    <ExpandableButtonListItem
+      key="drawer-oauth-ebli"
+      title="OAuth"
+      icon={<OAuthIcon />}
+      open={open}
+      handleClick={handleClick}
+    />,
+    <Collapse key="drawer-oauth-c" in={open} timeout="auto" unmountOnExit>
       <List component="div" disablePadding>
         <NavLink style={{ color: "inherit", textDecoration: "none" }} to="/client-details">
           <ButtonListItem subItem title="Client Details" icon={<DetailsIcon />} />
