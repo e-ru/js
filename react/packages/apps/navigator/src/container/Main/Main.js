@@ -7,8 +7,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { MIN_DESKTOP_WIDTH } from "../../constants/ui";
 
 import ButtonAppBar from "../Appbar/ButtonAppBar";
-import MiniDrawer from "../Drawer/MiniDrawer";
-import TemporaryDrawer from "../Drawer/TemporaryDrawer";
+import MiniDrawer from "../Navigation/MiniDrawer";
+import MiniAppBarImpl from "../Navigation/MiniAppbarImpl";
+import MiniDrawerImpl from "../Navigation/MiniDrawerImpl";
+
+import TemporaryDrawer from "../Navigation/TemporaryDrawer";
 import Content from "../Content/Content";
 
 const useStyles = makeStyles(() => ({
@@ -23,8 +26,11 @@ const Main = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <ButtonAppBar />
-      {isDesktop ? <MiniDrawer /> : <TemporaryDrawer />}
+
+      <MiniAppBarImpl />
+      {isDesktop ? <MiniDrawerImpl /> : <TemporaryDrawer />}
+      {/* <ButtonAppBar />
+      {isDesktop ? <MiniDrawer /> : <TemporaryDrawer />} */}
       <Content />
     </div>
   );
