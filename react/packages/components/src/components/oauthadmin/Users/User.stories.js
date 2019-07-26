@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import User from "../components/oauthadmin/Users/User";
+import User from "./User";
 
 storiesOf("User", module)
   .add("with user", () => (
