@@ -8,9 +8,6 @@ import {
   OAUTH_REVOKE_REFRESH_TOKEN_REQUEST,
   OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS,
   OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
-  OAUTH_TOKEN_KEY_REQUEST,
-  OAUTH_TOKEN_KEY_SUCCESS,
-  OAUTH_TOKEN_KEY_FAILURE,
 } from "../constants/actionTypes";
 import { OAUTH_SERVER, GRANT_TYPE, CLIENT_ID, REDIRECT_URL, SCOPE } from "../constants/constants";
 
@@ -41,21 +38,6 @@ export const retrieveToken = code => ({
         payload: successPayload,
       },
       OAUTH_TOKEN_FAILURE,
-    ],
-  },
-});
-
-export const retrieveOAuthTokenKey = () => ({
-  [RSAA]: {
-    endpoint: `${OAUTH_SERVER}/oauth/token_key`,
-    method: "GET",
-    types: [
-      OAUTH_TOKEN_KEY_REQUEST,
-      {
-        type: OAUTH_TOKEN_KEY_SUCCESS,
-        payload: successPayload,
-      },
-      OAUTH_TOKEN_KEY_FAILURE,
     ],
   },
 });

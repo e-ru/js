@@ -16,7 +16,7 @@ export const initialState = {
   clientId: null,
   error: null,
   authState: "",
-  loggedIn: true,
+  loggedIn: false,
 };
 
 export default (state = initialState, action) => {

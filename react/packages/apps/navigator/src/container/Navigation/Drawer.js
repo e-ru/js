@@ -14,7 +14,7 @@ import DrawerOAuthContent from "./DrawerOAuthContent";
 
 import { setShowSideDrawer } from "../../actions/ui";
 
-const drawerContent = () => [<DrawerHomeContent />, <DrawerOAuthContent />];
+const drawerContent = () => [<DrawerHomeContent key="drawer-home" />, <DrawerOAuthContent key="drawer-oauth" />];
 
 const DrawerComponent = ({ sideDrawerOpen, sideDrawerOpenHandler }) => {
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);

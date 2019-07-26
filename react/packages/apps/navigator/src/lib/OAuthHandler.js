@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken";
-
 import { setOAuthData /* , setUsersRefreshedAfterUserUpdate */ } from "../actions/oauth";
 
 // import { requestOAuthUsers } from "../utils/initializer";
@@ -20,7 +18,7 @@ class OAuthHandler {
   }
 
   storeTokenData(tokenData) {
-    const decoded = jwt.verify(tokenData.access_token, this.store.getState().oauth.tokenKey);
+    const decoded = JSON.parse(atob(tokenData.access_token.split(".")[1]));
     const username = decoded.user_name;
     const clientId = decoded.client_id;
 
