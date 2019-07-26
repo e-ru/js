@@ -10,10 +10,9 @@ function setup() {
   const props = {
     sideDrawerOpen: true,
     sideDrawerOpenHandler: jest.fn(),
-    drawerContent: [],
   };
 
-  const mab = shallow(<MiniDrawer {...props} />);
+  const mab = shallow(<MiniDrawer {...props}>{[<div key="foo">foo</div>, <div key="bar">bar</div>]}</MiniDrawer>);
 
   return {
     mab,

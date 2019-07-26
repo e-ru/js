@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -48,33 +49,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MiniDrawer = (props /* { sideDrawerOpen, sideDrawerOpenHandler, drawerContent } */) => {
+const MiniDrawer = props => {
   const classes = useStyles();
   const theme = useTheme();
-  console.log("props: ", props);
+
+  const { sideDrawerOpen, sideDrawerOpenHandler, children } = props;
+
   return (
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
-        [classes.drawerOpen]: props.sideDrawerOpen,
-        [classes.drawerClose]: !props.sideDrawerOpen,
+        [classes.drawerOpen]: sideDrawerOpen,
+        [classes.drawerClose]: !sideDrawerOpen,
       })}
       classes={{
         paper: clsx({
-          [classes.drawerOpen]: props.sideDrawerOpen,
-          [classes.drawerClose]: !props.sideDrawerOpen,
+          [classes.drawerOpen]: sideDrawerOpen,
+          [classes.drawerClose]: !sideDrawerOpen,
         }),
       }}
-      open={props.sideDrawerOpen}
+      open={sideDrawerOpen}
     >
       <div className={classes.toolbar}>
-        <IconButton onClick={props.sideDrawerOpenHandler}>
+        <IconButton onClick={sideDrawerOpenHandler}>
           {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </IconButton>
       </div>
       <Divider />
-      {props.drawerContent}
-      {/* <DrawerInitialContent /> */}
+      <List>{children}</List>
     </Drawer>
   );
 };
@@ -82,7 +84,7 @@ const MiniDrawer = (props /* { sideDrawerOpen, sideDrawerOpenHandler, drawerCont
 MiniDrawer.propTypes = {
   sideDrawerOpen: PropTypes.bool.isRequired,
   sideDrawerOpenHandler: PropTypes.func.isRequired,
-  drawerContent: PropTypes.array.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export default MiniDrawer;
