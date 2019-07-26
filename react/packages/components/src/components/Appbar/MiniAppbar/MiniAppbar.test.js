@@ -11,10 +11,13 @@ function setup() {
     title: "test-title",
     drawerOpen: true,
     handleDrawerOpen: jest.fn(),
-    usermenu: {},
   };
 
-  const mab = shallow(<MiniAppBar {...props} />);
+  const mab = shallow(
+    <MiniAppBar {...props}>
+      <div />
+    </MiniAppBar>
+  );
 
   return {
     mab,

@@ -2,28 +2,23 @@ import React from "react";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import ButtonAppBar from "./ButtonAppBar";
+import Usermenu from "./Usermenu";
 
 configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    title: "test-title",
-    handleDrawerOpen: jest.fn(),
+    entries: [],
   };
 
-  const mab = shallow(
-    <ButtonAppBar {...props}>
-      <div />
-    </ButtonAppBar>
-  );
+  const um = shallow(<Usermenu {...props} />);
 
   return {
-    mab,
+    um,
   };
 }
 
 it("renders without crashing", () => {
-  const { mab } = setup();
-  expect(mab).toMatchSnapshot();
+  const { um } = setup();
+  expect(um).toMatchSnapshot();
 });

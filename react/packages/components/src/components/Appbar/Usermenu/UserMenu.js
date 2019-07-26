@@ -6,7 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const UserMenu = ({ revokeRefreshTokenHandler }) => {
+const Usermenu = ({ entries }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -44,21 +44,24 @@ const UserMenu = ({ revokeRefreshTokenHandler }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            revokeRefreshTokenHandler();
-          }}
-        >
-          Logout
-        </MenuItem>
+        {entries.map(entrie => (
+          <MenuItem
+            key={entrie.title}
+            onClick={() => {
+              handleClose();
+              entrie.func();
+            }}
+          >
+            {entrie.title}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
 };
 
-UserMenu.propTypes = {
-  revokeRefreshTokenHandler: PropTypes.func.isRequired,
+Usermenu.propTypes = {
+  entries: PropTypes.array.isRequired,
 };
 
-export default UserMenu;
+export default Usermenu;

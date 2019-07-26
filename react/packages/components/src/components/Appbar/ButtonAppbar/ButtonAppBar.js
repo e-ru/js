@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ButtonAppBar = ({ title, handleDrawerOpen, usermenu }) => {
+const ButtonAppBar = props => {
   const classes = useStyles();
-
+  const { title, handleDrawerOpen, children } = props;
   return (
     <AppBar className={clsx(classes.appBar)}>
       <Toolbar>
@@ -39,7 +39,7 @@ const ButtonAppBar = ({ title, handleDrawerOpen, usermenu }) => {
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
-        {usermenu}
+        {children}
       </Toolbar>
     </AppBar>
   );
@@ -48,7 +48,7 @@ const ButtonAppBar = ({ title, handleDrawerOpen, usermenu }) => {
 ButtonAppBar.propTypes = {
   title: PropTypes.string.isRequired,
   handleDrawerOpen: PropTypes.func.isRequired,
-  usermenu: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ButtonAppBar;

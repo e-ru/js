@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MiniAppBar = ({ title, drawerOpen, handleDrawerOpen, usermenu }) => {
+const MiniAppBar = props => {
   const classes = useStyles();
-
+  const { title, drawerOpen, handleDrawerOpen, children } = props;
   return (
     <AppBar
       position="fixed"
@@ -63,7 +63,7 @@ const MiniAppBar = ({ title, drawerOpen, handleDrawerOpen, usermenu }) => {
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
-        {usermenu}
+        {children}
       </Toolbar>
     </AppBar>
   );
@@ -73,7 +73,7 @@ MiniAppBar.propTypes = {
   title: PropTypes.string.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
   handleDrawerOpen: PropTypes.func.isRequired,
-  usermenu: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default MiniAppBar;

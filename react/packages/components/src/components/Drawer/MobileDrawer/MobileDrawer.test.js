@@ -2,21 +2,17 @@ import React from "react";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import ButtonAppBar from "./ButtonAppBar";
+import MobileDrawer from "./MobileDrawer";
 
 configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    title: "test-title",
-    handleDrawerOpen: jest.fn(),
+    sideDrawerOpen: true,
+    sideDrawerOpenHandler: jest.fn(),
   };
 
-  const mab = shallow(
-    <ButtonAppBar {...props}>
-      <div />
-    </ButtonAppBar>
-  );
+  const mab = shallow(<MobileDrawer {...props}>{[<div key="foo">foo</div>, <div key="bar">bar</div>]}</MobileDrawer>);
 
   return {
     mab,
