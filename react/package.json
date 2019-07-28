@@ -28,6 +28,7 @@
     "prettier-eslint": "^9.0.0",
     "redux-mock-store": "^1.5.3",
     "lodash": ">=4.17.14",
-    "lerna": "^3.16.4"
+    "lerna": "^3.16.4",
+    "create-react-component-folder": "^0.1.30"
   }
 }

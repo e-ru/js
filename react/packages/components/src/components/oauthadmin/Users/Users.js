@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import EnhancedTable from "../../common/Table/EnhancedTable";
+import EnhancedTable from "../../Table/EnhancedTable";
 import UserTableRow from "./UserTableRow";
 
 const headRows = [

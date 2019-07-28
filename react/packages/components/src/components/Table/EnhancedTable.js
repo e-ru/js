@@ -12,7 +12,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
 
-import { stableSort, getSorting } from "../../../utils/table";
+import { stableSort, getSorting } from "../../utils/table";
 
 const useStyles = makeStyles(theme => ({
   paper: {

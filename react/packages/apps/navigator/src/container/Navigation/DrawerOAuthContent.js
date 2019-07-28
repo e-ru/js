@@ -6,8 +6,8 @@ import { NavLink } from "react-router-dom";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 
-import ButtonListItem from "@e-ru/components/src/components/common/List/ButtonListItem"; // "components/src/components/common/List/ButtonListItem";
-import ExpandableButtonListItem from "@e-ru/components/src/components/common/List/ExpandableButtonListItem";
+import ButtonListItem from "@e-ru/components/src/components/List/ButtonListItem"; // "components/src/components/common/List/ButtonListItem";
+import ExpandableButtonListItem from "@e-ru/components/src/components/List/ExpandableButtonListItem";
 
 import OAuthIcon from "@material-ui/icons/VpnKey";
 import UsersIcon from "@material-ui/icons/People";
