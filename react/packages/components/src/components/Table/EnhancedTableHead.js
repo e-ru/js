@@ -13,10 +13,14 @@ const EnhancedTableHead = props => {
     onRequestSort(event, property);
   };
 
+  // TODO: <TableCell padding="checkbox" style={{ minWidth: "125px", maxWidth: "125px" }}>
+  // width range is needed because next to the checkbox is a edit icon located
+  // some kind of a hack...
+
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" style={{ minWidth: "125px", maxWidth: "125px" }}>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={numSelected === rowCount}

@@ -1,3 +1,3 @@
-export const USERS_PATH = "/users";
+export const OAUTH_USERS_PATH = "/users";
 
-export default USERS_PATH;
+export default OAUTH_USERS_PATH;

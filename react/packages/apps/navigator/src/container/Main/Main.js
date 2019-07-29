@@ -9,20 +9,15 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import {
-  MIN_DESKTOP_WIDTH,
-  CONTENT_MARGIN_TOP_DESKTOP,
-  CONTENT_MARGIN_TOP_MOBILE,
-  // USERS_PATH,
-} from "../../constants/ui";
+import { MIN_DESKTOP_WIDTH, CONTENT_MARGIN_TOP_DESKTOP, CONTENT_MARGIN_TOP_MOBILE } from "../../constants/ui";
 
-import { USERS_PATH } from "../../constants/router";
+import { OAUTH_USERS_PATH } from "../../constants/router";
 
 import Appbar from "../Navigation/Appbar";
 import Drawer from "../Navigation/Drawer";
-import Users from "../Users";
 
-// import Content from "../Content/Content";
+import OAuthUsers from "../OAuthUsers";
+import OAuthUser from "../OAuthUser";
 
 const drawerWidth = 240;
 const drawerShrinkWidth = 73;
@@ -63,7 +58,6 @@ const MainComponent = ({ sideDrawerOpen }) => {
       <CssBaseline />
       <Appbar />
       <Drawer />
-      {/* <Content /> */}
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: sideDrawerOpen && isDesktop,
@@ -71,8 +65,8 @@ const MainComponent = ({ sideDrawerOpen }) => {
           [classes.contentMobile]: !isDesktop,
         })}
       >
-        <Route path={USERS_PATH} exact component={Users} />
-        {/* <Route path={`${USERS_PATH}/:id`} component={User} /> */}
+        <Route path={OAUTH_USERS_PATH} exact component={OAuthUsers} />
+        <Route path={`${OAUTH_USERS_PATH}/:id`} component={OAuthUser} />
       </main>
     </div>
   );

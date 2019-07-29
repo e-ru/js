@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Users from "./Users";
+import OAuthUsers from "./OAuthUsers";
 
 describe("<Users />", () => {
   test("renders", () => {
-    const wrapper = shallow(<Users />);
+    const wrapper = shallow(<OAuthUsers />);
     expect(wrapper).toMatchSnapshot();
   });
 });

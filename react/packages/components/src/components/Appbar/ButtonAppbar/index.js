@@ -1,3 +1,1 @@
-import ButtonAppBar from "./ButtonAppBar";
-
-export default ButtonAppBar;
+export { default } from "./ButtonAppBar";

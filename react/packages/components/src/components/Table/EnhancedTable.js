@@ -8,6 +8,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TablePagination from "@material-ui/core/TablePagination";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component, refreshResetHandler }) => {
+const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowComponent, inProgress }) => {
   const [selected, setSelected] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("username");
@@ -92,31 +93,33 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component, re
             rowCount={rows.length}
             headRows={headRows}
           />
-          <TableBody>
-            {stableSort(rows, getSorting(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                const isItemSelected = isSelected(row.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
-                return (
-                  <Component
-                    key={row.name}
-                    row={row}
-                    isItemSelected={isItemSelected}
-                    labelId={labelId}
-                    handleClick={handleClick}
-                    refreshResetHandler={refreshResetHandler}
-                  />
-                );
-              })}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 49 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
+          {!inProgress && (
+            <TableBody>
+              {stableSort(rows, getSorting(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.name);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+                  return (
+                    <TableRowComponent
+                      key={row.name}
+                      row={row}
+                      isItemSelected={isItemSelected}
+                      labelId={labelId}
+                      handleClick={handleClick}
+                    />
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 49 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          )}
         </Table>
       </div>
+      {inProgress && <LinearProgress />}
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
@@ -136,12 +139,16 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: Component, re
   );
 };
 
+EnhancedTable.defaultProps = {
+  inProgress: false,
+};
+
 EnhancedTable.propTypes = {
   title: PropTypes.string.isRequired,
   rows: PropTypes.array.isRequired,
   headRows: PropTypes.array.isRequired,
   tableRowComponent: PropTypes.func.isRequired,
-  refreshResetHandler: PropTypes.func.isRequired,
+  inProgress: PropTypes.bool,
 };
 
 export default EnhancedTable;

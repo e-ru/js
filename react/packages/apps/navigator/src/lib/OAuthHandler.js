@@ -1,20 +1,8 @@
-import { setOAuthData /* , setUsersRefreshedAfterUserUpdate */ } from "../actions/oauth";
-
-// import { requestOAuthUsers } from "../utils/initializer";
+import { setOAuthData } from "../actions/oauth";
 
 class OAuthHandler {
   constructor(store) {
     this.store = store;
-
-    this._userUpdated = false;
-  }
-
-  set userUpdated(userUpdated) {
-    this._userUpdated = userUpdated;
-  }
-
-  get userUpdated() {
-    return this._userUpdated;
   }
 
   storeTokenData(tokenData) {
@@ -24,17 +12,6 @@ class OAuthHandler {
 
     this.store.dispatch(setOAuthData(tokenData, username, clientId));
   }
-
-  // requestAuthUsers() {
-  //   requestOAuthUsers(this.store.dispatch, this.store.getState().oauth.authData.access_token);
-  // }
-
-  // refreshAfterUpdateState() {
-  //   if (this.userUpdated) {
-  //     this.userUpdated = false;
-  //     this.store.dispatch(setUsersRefreshedAfterUserUpdate(true));
-  //   }
-  // }
 }
 
 export default OAuthHandler;

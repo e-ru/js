@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 
-import ButtonListItem from "@e-ru/components/src/components/List/ButtonListItem"; // "components/src/components/common/List/ButtonListItem";
+import ButtonListItem from "@e-ru/components/src/components/List/ButtonListItem";
 import ExpandableButtonListItem from "@e-ru/components/src/components/List/ExpandableButtonListItem";
 
 import OAuthIcon from "@material-ui/icons/VpnKey";
@@ -15,7 +15,7 @@ import DetailsIcon from "@material-ui/icons/Notes";
 import RolesIcon from "@material-ui/icons/Wc";
 import PermissionsIcon from "@material-ui/icons/CheckCircleOutline";
 
-import { getUsers } from "../../actions/oauthusers";
+import { requestOAuthUsers } from "../../actions/oauthadmin";
 
 export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
   const [open, setOpen] = useState(true);
@@ -54,9 +54,9 @@ DrawerOAuthContentComponent.propTypes = {
   getUsersHanlder: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  getUsersHanlder: () => dispatch(getUsers()),
-});
+const mapDispatchToProps = {
+  getUsersHanlder: () => (dispatch, getState) => dispatch(requestOAuthUsers(getState().oauth.authData.access_token)),
+};
 
 const DrawerOAuthContent = connect(
   null,

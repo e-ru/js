@@ -9,11 +9,11 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import preloadMiddleware from "./middleware/preloadMiddleware";
 import oAuthMiddleware from "./middleware/oauthMiddleware";
+import oAuthAdminMiddleware from "./middleware/oauthAdminMiddleware";
 import rootReducer from "./reducers";
 
-const store = compose(applyMiddleware(apiMiddleware, thunk, oAuthMiddleware, preloadMiddleware))(createStore)(
+const store = compose(applyMiddleware(apiMiddleware, thunk, oAuthMiddleware, oAuthAdminMiddleware))(createStore)(
   rootReducer
 );
 

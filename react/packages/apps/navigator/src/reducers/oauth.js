@@ -20,7 +20,6 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("action: ", action);
   switch (action.type) {
     case OAUTH_SET_RANDOM_STATE:
       return {
