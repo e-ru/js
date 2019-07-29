@@ -1,3 +1,1 @@
-import MobileDrawer from "./MobileDrawer";
-
-export default MobileDrawer;
+export { default } from "./MobileDrawer";

@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 
-import oauth from "./oauth";
 import ui from "./ui";
+import oauth from "./oauth";
+import oauthadmin from "./oauthadmin";
 
 const tmpReducer = combineReducers({
   ui,
   oauth,
+  oauthadmin,
 });
 
 const rootReducer = (state, action) => {

@@ -1,3 +1,1 @@
-import MiniAppBar from "./MiniAppbar";
-
-export default MiniAppBar;
+export { default } from "./MiniAppbar";

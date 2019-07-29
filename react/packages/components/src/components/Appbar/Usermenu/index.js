@@ -1,3 +1,1 @@
-import Usermenu from "./Usermenu";
-
-export default Usermenu;
+export { default } from "./Usermenu";

@@ -1,3 +1,1 @@
-import MiniDrawer from "./MiniDrawer";
-
-export default MiniDrawer;
+export { default } from "./MiniDrawer";
