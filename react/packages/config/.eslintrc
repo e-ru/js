@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "airbnb", "prettier", "prettier/react"],
 
@@ -16,7 +17,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "jest"],
   "rules": {
     "prefer-template": 0,
     "no-empty": 0,
@@ -29,6 +30,10 @@
       }
     ],
     "no-underscore-dangle": 0,
+    "import/no-extraneous-dependencies": [
+      0,
+      { "devDependencies": ["**/*.test.js"] }
+    ],
     "react/prefer-stateless-function": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [

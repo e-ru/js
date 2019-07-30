@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 
-import Main from "../Main/Main";
+import Main from "../Main";
 
 const ProtectedMainRouteComponent = ({ loggedIn, ...rest }) => {
   return (

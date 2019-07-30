@@ -7,7 +7,12 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case OAUTH_USER_PUT_REQUEST || OAUTH_USERS_GET_REQUEST:
+    case OAUTH_USERS_GET_REQUEST:
+      return {
+        ...state,
+        getOAuthUsersInProgress: true,
+      };
+    case OAUTH_USER_PUT_REQUEST:
       return {
         ...state,
         getOAuthUsersInProgress: true,

@@ -12,6 +12,29 @@ import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Create";
 import IconButton from "@material-ui/core/IconButton";
 
+import { OAUTH_USERS_PATH } from "../../../constants/router";
+
+export const headRows = [
+  { id: "name", numeric: false, disablePadding: true, label: "Username" },
+  { id: "email", numeric: false, disablePadding: false, label: "E-Mail" },
+  { id: "enabled", numeric: true, disablePadding: false, label: "Enabled" },
+  { id: "locked", numeric: true, disablePadding: false, label: "Locked" },
+  { id: "expired", numeric: true, disablePadding: false, label: "Expired" },
+];
+
+export const prepareRowData = oAuthUsers => {
+  return oAuthUsers
+    ? oAuthUsers.map(user => {
+        const row = {
+          ...user,
+          name: user.username,
+        };
+        delete row.username;
+        return row;
+      })
+    : [];
+};
+
 const useStyles = makeStyles(theme => ({
   actions: {
     minWidth: "110px",
@@ -22,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UserTableRow = ({ row, isItemSelected, labelId, usersPath, handleClick, refreshResetHandler }) => {
+const OAuthUserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
   const classes = useStyles();
   return (
     <TableRow hover role="checkbox" aria-checked={isItemSelected} tabIndex={-1} selected={isItemSelected}>
@@ -32,11 +55,11 @@ const UserTableRow = ({ row, isItemSelected, labelId, usersPath, handleClick, re
           checked={isItemSelected}
           inputProps={{ "aria-labelledby": labelId }}
         />
-        <IconButton className={classes.edit} onClick={() => refreshResetHandler(false)}>
-          <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${usersPath}/${row.id}`}>
+        <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${OAUTH_USERS_PATH}/${row.id}`}>
+          <IconButton className={classes.edit}>
             <EditIcon />
-          </NavLink>
-        </IconButton>
+          </IconButton>
+        </NavLink>
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">
         {row.name}
@@ -49,13 +72,11 @@ const UserTableRow = ({ row, isItemSelected, labelId, usersPath, handleClick, re
   );
 };
 
-UserTableRow.propTypes = {
+OAuthUserTableRow.propTypes = {
   row: PropTypes.object.isRequired,
   isItemSelected: PropTypes.bool.isRequired,
   labelId: PropTypes.string.isRequired,
-  usersPath: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
-  refreshResetHandler: PropTypes.func.isRequired,
 };
 
-export default UserTableRow;
+export default OAuthUserTableRow;

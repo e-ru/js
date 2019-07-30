@@ -15,10 +15,10 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import { MIN_DESKTOP_WIDTH } from "../../constants/ui";
-import { OAUTH_USERS_PATH } from "../../constants/router";
+import { MIN_DESKTOP_WIDTH } from "../../../constants/ui";
+import { OAUTH_USERS_PATH } from "../../../constants/router";
 
-import { requestOAuthUsers, updateOAuthUser } from "../../actions/oauthadmin";
+import { requestOAuthUsers, updateOAuthUser } from "../../../actions/oauthadmin";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -80,7 +80,7 @@ const userRestRepInit = {
   accountExpired: false,
 };
 
-const OAuthUserComponent = ({ oAuthUsers, match, getUsersHanlder, updateUserHandler }) => {
+export const OAuthUserComponent = ({ oAuthUsers, match, getUsersHanlder, updateUserHandler }) => {
   const [userRestRep, setUserRestRep] = useState(userRestRepInit);
   const [updateRequest, setUpdateRequest] = useState(false);
 

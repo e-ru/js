@@ -1,5 +1,5 @@
 import ui from "./ui";
-import { OAUTH_SHOW_AUTH_WINDOW } from "../constants/actionTypes";
+import { OAUTH_SHOW_AUTH_WINDOW } from "../actions/ui";
 
 describe("ui reducer", () => {
   it("should return the initial state", () => {

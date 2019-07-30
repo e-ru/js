@@ -1,13 +1,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import User from "./User";
+import { OAuthUserComponent } from "./OAuthUser";
 
-storiesOf("User", module)
+storiesOf("OAuthUser", module)
   .add("with user", () => (
-    <User
-      usersRefreshedAfterUserUpdate={false}
-      users={[
+    <OAuthUserComponent
+      oAuthUsers={[
         {
           id: 0,
           username: "test_user_1",
@@ -26,16 +25,15 @@ storiesOf("User", module)
         },
       ]}
       match={{ params: { id: 0 } }}
-      usersPath=""
+      getUsersHanlder={() => console.log("getUsersHanlder clicked")}
       updateUserHandler={() => console.log("updateUserHandler clicked")}
     />
   ))
   .add("with no user", () => (
-    <User
-      usersRefreshedAfterUserUpdate={false}
-      users={[]}
+    <OAuthUserComponent
+      oAuthUsers={[]}
       match={{ params: { id: 0 } }}
-      usersPath=""
+      getUsersHanlder={() => console.log("getUsersHanlder clicked")}
       updateUserHandler={() => console.log("updateUserHandler clicked")}
     />
   ));
