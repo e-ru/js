@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
+const OAuthUserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
   const classes = useStyles();
   return (
     <TableRow hover role="checkbox" aria-checked={isItemSelected} tabIndex={-1} selected={isItemSelected}>
@@ -55,11 +55,11 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
           checked={isItemSelected}
           inputProps={{ "aria-labelledby": labelId }}
         />
-        <IconButton className={classes.edit}>
-          <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${OAUTH_USERS_PATH}/${row.id}`}>
+        <NavLink style={{ color: "inherit", textDecoration: "none" }} to={`${OAUTH_USERS_PATH}/${row.id}`}>
+          <IconButton className={classes.edit}>
             <EditIcon />
-          </NavLink>
-        </IconButton>
+          </IconButton>
+        </NavLink>
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">
         {row.name}
@@ -72,11 +72,11 @@ const UserTableRow = ({ row, isItemSelected, labelId, handleClick }) => {
   );
 };
 
-UserTableRow.propTypes = {
+OAuthUserTableRow.propTypes = {
   row: PropTypes.object.isRequired,
   isItemSelected: PropTypes.bool.isRequired,
   labelId: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
-export default UserTableRow;
+export default OAuthUserTableRow;
