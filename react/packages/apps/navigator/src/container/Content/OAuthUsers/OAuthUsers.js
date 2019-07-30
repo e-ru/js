@@ -6,9 +6,9 @@ import EnhancedTable from "@e-ru/components/src/components/Table/EnhancedTable";
 
 import OAuthUserTableRow, { prepareRowData, headRows } from "../OAuthUserTableRow";
 
-import { requestOAuthUsers } from "../../actions/oauthadmin";
+import { requestOAuthUsers } from "../../../actions/oauthadmin";
 
-const OAuthUsersComponent = ({ getOAuthUsersInProgress, oAuthUsers, getUsersHanlder }) => {
+export const OAuthUsersComponent = ({ getOAuthUsersInProgress, oAuthUsers, getUsersHanlder }) => {
   useEffect(() => {
     if (oAuthUsers.length === 0) getUsersHanlder();
   }, [getUsersHanlder, oAuthUsers.length]);

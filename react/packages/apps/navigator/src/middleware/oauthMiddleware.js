@@ -1,5 +1,5 @@
 import { OAUTH_SERVER } from "../constants/constants";
-import { OAUTH_TOKEN_SUCCESS, OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS } from "../constants/actionTypes";
+import { OAUTH_TOKEN_SUCCESS, OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS } from "../actions/oauth";
 
 import OAuthHandler from "../lib/OAuthHandler";
 

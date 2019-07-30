@@ -16,8 +16,8 @@ import { OAUTH_USERS_PATH } from "../../constants/router";
 import Appbar from "../Navigation/Appbar";
 import Drawer from "../Navigation/Drawer";
 
-import OAuthUsers from "../OAuthUsers";
-import OAuthUser from "../OAuthUser";
+import OAuthUsers from "../Content/OAuthUsers";
+import OAuthUser from "../Content/OAuthUser";
 
 const drawerWidth = 240;
 const drawerShrinkWidth = 73;
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MainComponent = ({ sideDrawerOpen }) => {
+export const MainComponent = ({ sideDrawerOpen }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   return (

@@ -1,4 +1,6 @@
-import { TOGGLE_SIDE_DRAWER, OAUTH_SHOW_AUTH_WINDOW } from "../constants/actionTypes";
+// import { TOGGLE_SIDE_DRAWER, OAUTH_SHOW_AUTH_WINDOW } from "../constants/actionTypes";
+export const TOGGLE_SIDE_DRAWER = "TOGGLE_SIDE_DRAWER";
+export const OAUTH_SHOW_AUTH_WINDOW = "OAUTH_SHOW_AUTH_WINDOW";
 
 export const setShowSideDrawer = sideDrawerOpen => ({
   type: TOGGLE_SIDE_DRAWER,
