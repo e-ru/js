@@ -78,11 +78,12 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const height = document.documentElement.clientHeight - 64 - 48 - 64 - 71 - 1 - (inProgress ? 4 : 0);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <EnhancedTableToolbar title={title} numSelected={selected.length} />
-      <div className={classes.tableWrapper}>
+      <div className={classes.tableWrapper} style={{ height: `${height}px` }}>
         <Table className={classes.table} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
           <EnhancedTableHead
             numSelected={selected.length}
@@ -102,7 +103,7 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRowComponent
-                      key={row.name}
+                      key={row.name + labelId}
                       row={row}
                       isItemSelected={isItemSelected}
                       labelId={labelId}
