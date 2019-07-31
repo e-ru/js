@@ -1,11 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { makeStyles } from "@material-ui/core/styles";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Checkbox from "@material-ui/core/Checkbox";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
+
+const useStyles = makeStyles(() => ({
+  sticky: {
+    position: "sticky",
+    top: "0px",
+    background: "#fff",
+    zIndex: "10",
+  },
+}));
 
 const EnhancedTableHead = props => {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headRows } = props;
@@ -17,10 +27,11 @@ const EnhancedTableHead = props => {
   // width range is needed because next to the checkbox is a edit icon located
   // some kind of a hack...
 
+  const classes = useStyles();
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox" style={{ minWidth: "125px", maxWidth: "125px" }}>
+        <TableCell className={classes.sticky} padding="checkbox" style={{ minWidth: "125px", maxWidth: "125px" }}>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={numSelected === rowCount}
@@ -30,6 +41,7 @@ const EnhancedTableHead = props => {
         </TableCell>
         {headRows.map(row => (
           <TableCell
+            className={classes.sticky}
             key={row.id}
             align={row.numeric ? "right" : "left"}
             padding={row.disablePadding ? "none" : "default"}
@@ -41,6 +53,7 @@ const EnhancedTableHead = props => {
           </TableCell>
         ))}
       </TableRow>
+      <TableRow style={{ height: "1px", borderBottom: "1px solid rgba(224, 224, 224, 1)" }} />
     </TableHead>
   );
 };
