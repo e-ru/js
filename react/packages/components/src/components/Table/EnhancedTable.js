@@ -103,7 +103,7 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRowComponent
-                      key={row.name}
+                      key={row.name + labelId}
                       row={row}
                       isItemSelected={isItemSelected}
                       labelId={labelId}
