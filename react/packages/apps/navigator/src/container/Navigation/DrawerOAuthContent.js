@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 import List from "@material-ui/core/List";
@@ -15,9 +13,7 @@ import DetailsIcon from "@material-ui/icons/Notes";
 import RolesIcon from "@material-ui/icons/Wc";
 import PermissionsIcon from "@material-ui/icons/CheckCircleOutline";
 
-import { requestOAuthUsers } from "../../actions/oauthadmin";
-
-export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
+const DrawerOAuthContent = () => {
   const [open, setOpen] = useState(true);
 
   function handleClick() {
@@ -37,7 +33,7 @@ export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
           <ButtonListItem subItem title="Client Details" icon={<DetailsIcon />} />
         </NavLink>
         <NavLink style={{ color: "inherit", textDecoration: "none" }} to="/users">
-          <ButtonListItem subItem title="Users" icon={<UsersIcon />} onClickHanlder={getUsersHanlder} />
+          <ButtonListItem subItem title="Users" icon={<UsersIcon />} />
         </NavLink>
         <NavLink style={{ color: "inherit", textDecoration: "none" }} to="/permissions">
           <ButtonListItem subItem title="Permissions" icon={<PermissionsIcon />} />
@@ -49,18 +45,5 @@ export const DrawerOAuthContentComponent = ({ getUsersHanlder }) => {
     </Collapse>,
   ];
 };
-
-DrawerOAuthContentComponent.propTypes = {
-  getUsersHanlder: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = {
-  getUsersHanlder: () => (dispatch, getState) => dispatch(requestOAuthUsers(getState().oauth.authData.access_token)),
-};
-
-const DrawerOAuthContent = connect(
-  null,
-  mapDispatchToProps
-)(DrawerOAuthContentComponent);
 
 export default DrawerOAuthContent;

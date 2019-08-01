@@ -7,6 +7,7 @@ import configureStore from "redux-mock-store";
 
 import { initialState as ui } from "./reducers/ui";
 import { initialState as oauth } from "./reducers/oauth";
+import { initialState as oauthadmin } from "./reducers/oauthadmin";
 
 import App from "./App";
 import LoginPage from "./container/Login/LoginPage";
@@ -17,6 +18,7 @@ configure({ adapter: new Adapter() });
 const initialState = {
   ui,
   oauth,
+  oauthadmin,
 };
 
 const middlewares = [];
