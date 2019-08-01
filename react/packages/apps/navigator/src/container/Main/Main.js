@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const MainComponent = ({ sideDrawerOpen }) => {
+const MainComponent = ({ sideDrawerOpen }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery(`(min-width:${MIN_DESKTOP_WIDTH})`);
   return (
