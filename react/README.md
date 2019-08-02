@@ -1,4 +1,4 @@
-cd /
+cd /react
 
 yarn
 
@@ -9,8 +9,11 @@ yarn test
 
 cd packages/components
 
-yarn storybook
 yarn test
+
+cd packages/storybook
+
+yarn storybook
 
 https://github.com/react-workspaces/create-react-app
 https://github.com/facebook/create-react-app/issues/1333
