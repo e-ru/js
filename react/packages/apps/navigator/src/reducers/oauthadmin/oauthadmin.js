@@ -1,4 +1,4 @@
-import { OAUTH_USER_PUT_REQUEST, OAUTH_USERS_GET_REQUEST, OAUTH_USERS_GET_SUCCESS } from "../actions/oauthadmin";
+import { OAUTH_USER_PUT_REQUEST, OAUTH_USERS_GET_REQUEST, OAUTH_USERS_GET_SUCCESS } from "../../actions/oauthadmin";
 
 export const initialState = {
   getOAuthUsersInProgress: false,

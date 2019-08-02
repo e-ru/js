@@ -12,10 +12,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ButtonListItem = ({ subItem, title, icon, onClickHanlder }) => {
+const ButtonListItem = ({ subItem, title, icon, onClickHandler }) => {
   const classes = useStyles();
   return (
-    <ListItem button className={subItem ? classes.nested : ""} key={title} onClick={onClickHanlder && onClickHanlder}>
+    <ListItem button className={subItem ? classes.nested : ""} key={title} onClick={onClickHandler && onClickHandler}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={title} />
     </ListItem>
@@ -23,7 +23,7 @@ const ButtonListItem = ({ subItem, title, icon, onClickHanlder }) => {
 };
 
 ButtonListItem.defaultProps = {
-  onClickHanlder: null,
+  onClickHandler: null,
   subItem: false,
 };
 
@@ -31,7 +31,7 @@ ButtonListItem.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
   subItem: PropTypes.bool,
-  onClickHanlder: PropTypes.func,
+  onClickHandler: PropTypes.func,
 };
 
 export default ButtonListItem;

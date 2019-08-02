@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,10 +10,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TablePagination from "@material-ui/core/TablePagination";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-import EnhancedTableToolbar from "./EnhancedTableToolbar";
-import EnhancedTableHead from "./EnhancedTableHead";
+import EnhancedTableToolbar from "../EnhancedTableToolbar";
+import EnhancedTableHead from "../EnhancedTableHead";
 
-import { stableSort, getSorting } from "../../utils/table";
+import { stableSort, getSorting } from "../../../utils/table";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,9 +21,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   tableWrapper: {
-    minHeight: "200px",
-    // height: "calc(100% - 64px - 48px - 64px - 71px - 1px)",
-    overflowX: "auto",
+    overflowY: "auto",
   },
 }));
 
@@ -35,18 +33,6 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const dense = false;
-
-  function dynamicallySetTableHeight() {
-    const h = document.documentElement.clientHeight - 64 - 48 - 64 - 71 - 1 - (inProgress ? 4 : 0);
-    const element = document.getElementById("tablewrapper");
-    element.style.height = `${h}px`;
-    console.log("height: ", h);
-  }
-
-  useEffect(() => {
-    window.onload = dynamicallySetTableHeight;
-    window.onresize = dynamicallySetTableHeight;
-  });
 
   function handleSelectAllClick(event) {
     if (event.target.checked) {
@@ -92,13 +78,13 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  // const height = document.documentElement.clientHeight - 64 - 48 - 64 - 71 - 1 - (inProgress ? 4 : 0);
+  const height = document.documentElement.clientHeight - 64 - 48 - 64 - 71 - 1 - (inProgress ? 4 : 0);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <EnhancedTableToolbar title={title} numSelected={selected.length} />
-      <div id="tablewrapper" className={classes.tableWrapper} /* style={{ height: `${height}px` }} */>
-        <Table className={classes.table} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
+      <div className={classes.tableWrapper} style={{ height: `${height}px` }}>
+        <Table aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
           <EnhancedTableHead
             numSelected={selected.length}
             order={order}
@@ -108,6 +94,7 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
             rowCount={rows.length}
             headRows={headRows}
           />
+
           {!inProgress && (
             <TableBody>
               {stableSort(rows, getSorting(order, orderBy))
@@ -138,8 +125,8 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={inProgress ? 0 : rows.length}
-        rowsPerPage={inProgress ? 0 : rowsPerPage}
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
           "aria-label": "Previous Page",

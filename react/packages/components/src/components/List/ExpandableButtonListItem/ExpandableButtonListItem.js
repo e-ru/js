@@ -7,7 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
-import { EXPANDABLE_LIST_ITEM_CLASS } from "../../constants/ui";
+import { EXPANDABLE_LIST_ITEM_CLASS } from "../../../constants/ui";
 
 const ExpandableButtonListItem = ({ title, open, icon, handleClick }) => {
   return (

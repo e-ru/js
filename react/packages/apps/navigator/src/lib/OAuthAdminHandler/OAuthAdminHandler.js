@@ -1,4 +1,4 @@
-import { requestOAuthUsers } from "../actions/oauthadmin";
+import { requestOAuthUsers } from "../../actions/oauthadmin";
 
 class OAuthAdminHandler {
   constructor(store) {

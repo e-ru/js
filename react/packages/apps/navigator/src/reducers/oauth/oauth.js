@@ -3,9 +3,9 @@ import {
   OAUTH_SET_DATA,
   OAUTH_TOKEN_FAILURE,
   OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
-} from "../actions/oauth";
+} from "../../actions/oauth";
 
-import { decodeAuthErrorResponse } from "../utils/oauth";
+import { decodeAuthErrorResponse } from "../../utils/oauth";
 
 export const initialState = {
   tokenKey: "",

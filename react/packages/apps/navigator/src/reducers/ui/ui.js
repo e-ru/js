@@ -1,4 +1,4 @@
-import { TOGGLE_SIDE_DRAWER, OAUTH_SHOW_AUTH_WINDOW } from "../actions/ui";
+import { TOGGLE_SIDE_DRAWER, OAUTH_SHOW_AUTH_WINDOW } from "../../actions/ui";
 
 export const initialState = {
   sideDrawerOpen: true,

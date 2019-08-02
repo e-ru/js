@@ -1,4 +1,4 @@
-import { setOAuthData } from "../actions/oauth";
+import { setOAuthData } from "../../actions/oauth";
 
 class OAuthHandler {
   constructor(store) {
