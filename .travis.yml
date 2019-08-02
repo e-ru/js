@@ -7,10 +7,17 @@ cache:
 matrix:
   include:
     - before_script:
-        - "cd authentication-server-admin-frontend"
-        - npm i
+        - "cd react"
+        - yarn
+        - "cd packages/apps/navigator"
       script:
-        - npm test
-        - npm run build
+        - yarn test
+        - yarn build
+    - before_script:
+        - "cd react"
+        - yarn
+        - "cd packages/components"
+      script:
+        - yarn test
 on:
   branch: master
