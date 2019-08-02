@@ -11,11 +11,11 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
-import { AUTHORIZATION_URL } from "../../constants/constants";
-import loginPicture from "../../images/login.jpg";
+import { AUTHORIZATION_URL } from "../../../constants/constants";
+import loginPicture from "../../../images/login.jpg";
 
-import LoginButton from "./LoginButton";
-import AuthWindow from "./AuthWindow";
+import LoginButton from "../LoginButton";
+import AuthWindow from "../AuthWindow";
 
 const useStyles = makeStyles(theme => ({
   root: {

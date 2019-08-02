@@ -1,16 +1,6 @@
 import { RSAA, getJSON } from "redux-api-middleware";
 
-import { OAUTH_SERVER, GRANT_TYPE, CLIENT_ID, REDIRECT_URL, SCOPE } from "../constants/constants";
-// import {
-//   OAUTH_SET_RANDOM_STATE,
-//   OAUTH_SET_DATA,
-//   // OAUTH_TOKEN_REQUEST,
-//   // OAUTH_TOKEN_SUCCESS,
-//   // OAUTH_TOKEN_FAILURE,
-//   // OAUTH_REVOKE_REFRESH_TOKEN_REQUEST,
-//   // OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS,
-//   // OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
-// } from "../constants/actionTypes";
+import { OAUTH_SERVER, GRANT_TYPE, CLIENT_ID, REDIRECT_URL, SCOPE } from "../../constants/constants";
 
 export const OAUTH_SET_RANDOM_STATE = "OAUTH_SET_RANDOM_STATE";
 export const OAUTH_SET_DATA = "OAUTH_SET_DATA";

@@ -4,8 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import { Redirect } from "react-router-dom";
 
 import { LoginPageComponent } from "./LoginPage";
-import LoginButton from "./LoginButton";
-import AuthWindow from "./AuthWindow";
+import LoginButton from "../LoginButton";
+import AuthWindow from "../AuthWindow";
 
 Enzyme.configure({ adapter: new Adapter() });
 

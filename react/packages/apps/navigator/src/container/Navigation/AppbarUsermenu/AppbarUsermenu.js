@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 import Usermenu from "@e-ru/components/src/components/Appbar/Usermenu";
 
-import { revokeRefreshToken } from "../../actions/oauth";
+import { revokeRefreshToken } from "../../../actions/oauth";
 
 const usermenuEntries = revokeRefreshTokenHandler => {
   return [{ title: "Logout", func: revokeRefreshTokenHandler }];
 };
 
-const AppbarUsermenuComponent = ({ revokeRefreshTokenHandler }) => {
+export const AppbarUsermenuComponent = ({ revokeRefreshTokenHandler }) => {
   return <Usermenu entries={usermenuEntries(revokeRefreshTokenHandler)} />;
 };
 

@@ -3,17 +3,23 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import NewWindow from "react-new-window";
 
-import { retrieveToken, setRandomState } from "../../actions/oauth";
-import { showAuthWindow } from "../../actions/ui";
+import { retrieveToken, setRandomState } from "../../../actions/oauth";
+import { showAuthWindow } from "../../../actions/ui";
 
 import {
   parseHrefForCode,
   parseHrefForState,
   generateRandomOAuthState,
   compareGeneratedWithReceivedState,
-} from "../../utils/oauth";
+} from "../../../utils/oauth";
 
-const AuthWindowComponent = ({ showOAuthWindow, authorizationUrl, setAuthState, showAuthWindowHandler, getToken }) => {
+export const AuthWindowComponent = ({
+  showOAuthWindow,
+  authorizationUrl,
+  setAuthState,
+  showAuthWindowHandler,
+  getToken,
+}) => {
   const [randomAuthState] = useState(generateRandomOAuthState());
   return (
     showOAuthWindow && (

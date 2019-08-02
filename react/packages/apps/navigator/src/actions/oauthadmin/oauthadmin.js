@@ -1,7 +1,5 @@
 import { RSAA, getJSON } from "redux-api-middleware";
-import { OAUTH_ADMIN_SERVER } from "../constants/constants";
-
-export const GET_OAUTH_USERS = "GET_OAUTH_USERS";
+import { OAUTH_ADMIN_SERVER } from "../../constants/constants";
 
 export const OAUTH_USERS_GET_REQUEST = "OAUTH_USERS_GET_REQUEST";
 export const OAUTH_USERS_GET_SUCCESS = "OAUTH_USERS_GET_SUCCESS";
@@ -14,10 +12,6 @@ export const OAUTH_USER_PUT_FAILURE = "OAUTH_USER_PUT_FAILURE";
 const successPayload = (action, state, res) => {
   return getJSON(res).then(json => json);
 };
-
-export const getOAuthUsers = () => ({
-  type: GET_OAUTH_USERS,
-});
 
 export const requestOAuthUsers = accessToken => ({
   [RSAA]: {
