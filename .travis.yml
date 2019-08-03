@@ -4,20 +4,13 @@ node_js:
 cache:
   directories:
     - node_modules
-matrix:
-  include:
-    - before_script:
-        - "cd react"
-        - yarn
-        - "cd packages/apps/navigator"
-      script:
-        - yarn test
-        - yarn build
-    - before_script:
-        - "cd react"
-        - yarn
-        - "cd packages/components"
-      script:
-        - yarn test
+script:
+  - "cd react"
+  - yarn
+  - "cd packages/components"
+  - yarn test
+  - "cd ../apps/navigator"
+  - yarn test
+  - yarn build
 on:
   branch: master
