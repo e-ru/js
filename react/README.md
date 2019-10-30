@@ -45,3 +45,14 @@ on:
   branch: master
 
 ```
+
+##Extensions
+
+ESLint, Prettier - Code Formatter
+
+add this to your user settings
+
+```
+    "javascript.format.enable": false,
+    "eslint.autoFixOnSave": true
+```

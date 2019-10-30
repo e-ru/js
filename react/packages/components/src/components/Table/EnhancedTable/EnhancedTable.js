@@ -125,8 +125,8 @@ const EnhancedTable = ({ title, rows, headRows, tableRowComponent: TableRowCompo
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
+        count={inProgress ? 0 : rows.length}
+        rowsPerPage={inProgress ? 0 : rowsPerPage}
         page={page}
         backIconButtonProps={{
           "aria-label": "Previous Page",
