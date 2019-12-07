@@ -12,5 +12,8 @@ script:
   - "cd ../apps/navigator"
   - yarn test
   - yarn build
+  - "cd ../navigator-context-api"
+  - yarn test
+  - yarn build
 on:
   branch: master
