@@ -5,9 +5,14 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import { StoreProvider } from "./store";
+import reducers, { initialState } from "./reducers";
+
 ReactDOM.render(
   <Router>
-    <App />
+    <StoreProvider initialState={initialState} reducer={reducers}>
+      <App />
+    </StoreProvider>
   </Router>,
   document.getElementById("root")
 );

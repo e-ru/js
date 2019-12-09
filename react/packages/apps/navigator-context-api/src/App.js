@@ -1,7 +1,14 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import LoginPage from "./container/Login/LoginPage";
 
 const App = () => {
-  return <div data-testid="app-test-id">foo</div>;
+  return (
+    <Switch>
+      <Route path="/login" component={LoginPage} />
+    </Switch>
+  );
 };
 
 export default App;
