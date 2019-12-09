@@ -39,11 +39,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const LoginPageComponent = ({ location }) => {
-  const [{ oAuthError, loggedIn }, dispatch] = useStore();
+  const [{ oAuthError, loggedIn }] = useStore();
   const classes = useStyles();
 
   const { from } = location.state || { from: { pathname: "/" } };
-  // const { from } = { from: { pathname: "/" } };
 
   console.log("drin");
   return loggedIn ? (
