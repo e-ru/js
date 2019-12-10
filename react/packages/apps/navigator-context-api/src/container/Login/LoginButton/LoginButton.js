@@ -17,6 +17,11 @@ const useStyles = makeStyles(theme => ({
 export const LoginButtonComponent = () => {
   const [{ oAuthError }, dispatch] = useStore();
   const classes = useStyles();
+
+  const onClick = () => {
+    dispatch(showAuthWindow(true));
+  };
+
   return (
     <Button
       fullWidth
@@ -24,7 +29,7 @@ export const LoginButtonComponent = () => {
       color="primary"
       className={classes.button}
       disabled={oAuthError !== null && oAuthError !== undefined}
-      onClick={() => dispatch(showAuthWindow(true))}
+      onClick={onClick}
     >
       Login
     </Button>

@@ -16,7 +16,7 @@ import { useStore } from "../../../store";
 import loginPicture from "../../../images/login.jpg";
 
 import LoginButton from "../LoginButton";
-// import AuthWindow from "../AuthWindow";
+import AuthWindow from "../AuthWindow";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,7 +44,6 @@ export const LoginPageComponent = ({ location }) => {
 
   const { from } = location.state || { from: { pathname: "/" } };
 
-  console.log("drin");
   return loggedIn ? (
     <Redirect to={from} />
   ) : (
@@ -60,7 +59,7 @@ export const LoginPageComponent = ({ location }) => {
             Sign in
           </Typography>
           <LoginButton />
-          {/* <AuthWindow authorizationUrl={AUTHORIZATION_URL} /> */}
+          <AuthWindow authorizationUrl="www.kicker.de" />
           {oAuthError && <Typography variant="body1">{oAuthError}</Typography>}
         </div>
       </Grid>
@@ -71,15 +70,6 @@ export const LoginPageComponent = ({ location }) => {
 LoginPageComponent.propTypes = {
   location: PropTypes.object.isRequired,
 };
-
-// const mapStateToProps = (state, ownProps) => {
-//   // console.log("login page state: ", state);
-//   return {
-//     location: ownProps.location,
-//     loggedIn: state.oauth.loggedIn,
-//     oAuthError: state.oauth.error,
-//   };
-// };
 
 const LoginPage = withRouter(LoginPageComponent);
 

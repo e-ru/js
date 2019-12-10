@@ -6,7 +6,7 @@ export const initialState = {
   ...state,
 };
 
-export default {
+export const reducer = {
   [types.TOGGLE_SIDE_DRAWER]: ui.toggleSideDrawer,
   [types.OAUTH_SHOW_AUTH_WINDOW]: ui.showAuthWindow,
 };
