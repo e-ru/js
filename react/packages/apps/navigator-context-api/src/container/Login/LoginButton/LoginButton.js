@@ -18,6 +18,8 @@ export const LoginButtonComponent = () => {
   const [{ oAuthError }, dispatch] = useStore();
   const classes = useStyles();
 
+  console.log("lb dispatch:", dispatch);
+
   const onClick = () => {
     dispatch(showAuthWindow(true));
   };

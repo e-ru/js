@@ -22,10 +22,12 @@ export const AuthWindowComponent = ({
   showAuthWindowHandler,
   getToken,
 }) => {
-  const [{ showOAuthWindow }] = useStore();
+  console.log("useStore: ", useStore());
+  const [{ ui }] = useStore();
+  console.log("state: ", ui.showOAuthWindow);
   // const [randomAuthState] = useState(generateRandomOAuthState());
   return (
-    showOAuthWindow && (
+    ui.showOAuthWindow && (
       <NewWindow
         // url={`${authorizationUrl}&state=${randomAuthState}`}
         // onUnload={() => {

@@ -3,23 +3,27 @@ import * as oauth from "./oauth";
 
 import applyMiddlewares from "../middleware";
 
-const createReducer = handlers => (state, action) => {
-  if (!Object.prototype.hasOwnProperty.call(handlers, action.type)) {
-    return state;
-  }
+// https://blog.jakoblind.no/code-your-own-combinereducers/
+const combineReducers = reducers => (state = {}, action) => ({
+  ...Object.entries(reducers)
+    .map(([stateName, reducer]) => ({ [stateName]: reducer(state[stateName], action) }))
+    .reduce((acc, cur) => {
+      const stateName = Object.keys(cur);
+      acc[stateName] = { ...cur[stateName] };
+      return acc;
+    }, {}),
+});
 
-  return applyMiddlewares({
-    state,
-    action,
-    handler: handlers[action.type],
-  });
-};
+const createReducer = handlers => (state, action) => handlers(state, action);
 
 export const initialState = {
-  ...ui.initialState,
-  ...oauth.initialState,
+  ui: ui.initialState,
+  oauth: oauth.initialState,
 };
-console.log("ui: ", ui);
-export default createReducer({
-  ...ui.reducer,
-});
+
+export default createReducer(
+  combineReducers({
+    ui: ui.reducer,
+    oauth: oauth.reducer,
+  })
+);
