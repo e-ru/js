@@ -1,8 +1,6 @@
 import * as ui from "./ui";
 import * as oauth from "./oauth";
 
-import applyMiddlewares from "../middleware";
-
 // https://blog.jakoblind.no/code-your-own-combinereducers/
 const combineReducers = reducers => (state = {}, action) => ({
   ...Object.entries(reducers)
@@ -14,16 +12,14 @@ const combineReducers = reducers => (state = {}, action) => ({
     }, {}),
 });
 
-const createReducer = handlers => (state, action) => handlers(state, action);
+const createReducer = reducers => (state, action) => combineReducers(reducers)(state, action);
 
 export const initialState = {
   ui: ui.initialState,
   oauth: oauth.initialState,
 };
 
-export default createReducer(
-  combineReducers({
-    ui: ui.reducer,
-    oauth: oauth.reducer,
-  })
-);
+export default createReducer({
+  ui: ui.reducer,
+  oauth: oauth.reducer,
+});

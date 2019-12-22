@@ -13,7 +13,17 @@ export const OAUTH_REVOKE_REFRESH_TOKEN_REQUEST = "REVOKE_REFRESH_TOKEN_REQUEST"
 export const OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS = "REVOKE_REFRESH_TOKEN_SUCCESS";
 export const OAUTH_REVOKE_REFRESH_TOKEN_FAILURE = "REVOKE_REFRESH_TOKEN_FAILURE";
 
+// const successPayload = async (action, state, res, dispatch) => {
+//   console.log("drin successPayload");
+//   const ret = await getJSON(res);
+//   console.log("ret: ", ret);
+//   console.log("action: ", action)
+//   dispatch({ type: OAUTH_TOKEN_SUCCESS, payload: ret });
+//   // return ret;
+// };
+
 const successPayload = (action, state, res) => {
+  console.log("drin successPayload");
   return getJSON(res).then(json => json);
 };
 
@@ -27,7 +37,7 @@ const getFormBody = code => {
   return new URLSearchParams(formData);
 };
 
-export const retrieveToken = code => ({
+export const retrieveToken = (code, dispatch) => ({
   [RSAA]: {
     endpoint: `${OAUTH_SERVER}/oauth/token`,
     method: "POST",
@@ -37,6 +47,7 @@ export const retrieveToken = code => ({
       OAUTH_TOKEN_REQUEST,
       {
         type: OAUTH_TOKEN_SUCCESS,
+        // payload: (action, state, res) => successPayload(action, state, res, dispatch),
         payload: successPayload,
       },
       OAUTH_TOKEN_FAILURE,

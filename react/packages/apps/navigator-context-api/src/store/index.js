@@ -1,9 +1,14 @@
-import React, { createContext, useState, useEffect, useContext, useReducer, memo } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import PropTypes from "prop-types";
 
 export const StateContext = createContext();
 
-const compose = (...funcs) => x => funcs.reduceRight((composed, f) => f(composed), x);
+const compose = (...funcs) => x => {
+  const red = funcs.reduceRight((composed, f) => {
+    return f(composed);
+  }, x);
+  return red;
+};
 
 const createStore = ([state, dispatch], middlewares) => {
   if (typeof middlewares !== "undefined") {
@@ -13,13 +18,10 @@ const createStore = ([state, dispatch], middlewares) => {
       dispatch: action => dispatch(action),
     };
     const chain = middlewares.map(middleware => middleware(middlewareAPI));
-    console.log("chain: ", chain);
     const enhancedDispatch = compose(...chain)(dispatch);
-    console.log("enhancedDispatch: ", enhancedDispatch);
     return { state, dispatch: enhancedDispatch };
   }
 
-  console.log("dispatch: ", dispatch);
   return { state, dispatch };
 };
 

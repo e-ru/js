@@ -8,16 +8,16 @@ import * as serviceWorker from "./serviceWorker";
 
 import { StoreProvider } from "./store";
 import reducers, { initialState } from "./reducers";
-
-const logMiddleware = store => next => action => {
-  console.log("Action Triggered");
-  console.log(action);
-  next(action);
-};
+import logMiddleware from "./middleware/logMiddleware";
+import oauthMiddleware from "./middleware/oauthMiddleware";
 
 ReactDOM.render(
   <Router>
-    <StoreProvider initialState={initialState} reducer={reducers} middlewares={[logMiddleware, apiMiddleware]}>
+    <StoreProvider
+      initialState={initialState}
+      reducer={reducers}
+      middlewares={[apiMiddleware, oauthMiddleware, logMiddleware]}
+    >
       <App />
     </StoreProvider>
   </Router>,

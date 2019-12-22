@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -14,15 +14,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const LoginButtonComponent = () => {
-  const [{ oAuthError }, dispatch] = useStore();
+export const LoginButtonComponent = ({ oAuthError, onClick }) => {
   const classes = useStyles();
-
-  console.log("lb dispatch:", dispatch);
-
-  const onClick = () => {
-    dispatch(showAuthWindow(true));
-  };
 
   return (
     <Button
@@ -38,14 +31,24 @@ export const LoginButtonComponent = () => {
   );
 };
 
-// LoginButtonComponent.defaultProps = {
-//   oAuthError: null,
-// };
+const LoginButton = () => {
+  const [{ oauth }, dispatch] = useStore();
 
-// LoginButtonComponent.propTypes = {
-//   oAuthError: PropTypes.string,
-//   showAuthWindowHandler: PropTypes.func.isRequired,
-// };
+  const onClick = () => {
+    dispatch(showAuthWindow(true));
+  };
+
+  return <LoginButtonComponent oAuthError={oauth.error} showAuthWindow={showAuthWindow} onClick={onClick} />;
+};
+
+LoginButtonComponent.defaultProps = {
+  oAuthError: null,
+};
+
+LoginButtonComponent.propTypes = {
+  oAuthError: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
 
 // const mapStateToProps = state => ({
 //   oAuthError: state.oauth.error,
@@ -61,4 +64,4 @@ export const LoginButtonComponent = () => {
 //   mapDispatchToProps
 // )(LoginButtonComponent);
 
-export default LoginButtonComponent;
+export default LoginButton;

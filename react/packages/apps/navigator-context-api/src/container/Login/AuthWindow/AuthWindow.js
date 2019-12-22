@@ -1,76 +1,78 @@
 import React, { useState } from "react";
-// import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import NewWindow from "react-new-window";
 
 import { useStore } from "../../../store";
 
-// import { retrieveToken, setRandomState } from "../../../actions/oauth";
+import { retrieveToken } from "../../../actions/oauth";
 import { showAuthWindow } from "../../../actions/ui";
 
-// import {
-//   parseHrefForCode,
-//   parseHrefForState,
-//   generateRandomOAuthState,
-//   compareGeneratedWithReceivedState,
-// } from "../../../utils/oauth";
+import {
+  parseHrefForCode,
+  parseHrefForState,
+  generateRandomOAuthState,
+  compareGeneratedWithReceivedState,
+} from "../../../utils/oauth";
 
 export const AuthWindowComponent = ({
-  // showOAuthWindow,
+  showOAuthWindow,
   authorizationUrl,
-  setAuthState,
+  randomAuthState,
   showAuthWindowHandler,
   getToken,
 }) => {
-  console.log("useStore: ", useStore());
-  const [{ ui }] = useStore();
-  console.log("state: ", ui.showOAuthWindow);
-  // const [randomAuthState] = useState(generateRandomOAuthState());
   return (
-    ui.showOAuthWindow && (
+    showOAuthWindow && (
       <NewWindow
-        // url={`${authorizationUrl}&state=${randomAuthState}`}
-        // onUnload={() => {
-        //   setAuthState(randomAuthState);
-        //   showAuthWindowHandler(false);
-        //   getToken();
-        // }}
-        url={`${authorizationUrl}`}
+        url={`${authorizationUrl}&state=${randomAuthState}`}
+        onUnload={() => {
+          showAuthWindowHandler(false);
+          getToken(randomAuthState);
+        }}
       />
     )
   );
 };
 
 AuthWindowComponent.propTypes = {
-  // showOAuthWindow: PropTypes.bool.isRequired,
-  setAuthState: PropTypes.func.isRequired,
+  showOAuthWindow: PropTypes.bool.isRequired,
   authorizationUrl: PropTypes.string.isRequired,
+  randomAuthState: PropTypes.string.isRequired,
   showAuthWindowHandler: PropTypes.func.isRequired,
   getToken: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = (state, ownProps) => ({
-//   showOAuthWindow: state.ui.showOAuthWindow,
-//   authorizationUrl: ownProps.authorizationUrl,
-// });
+const AuthWindow = ({ authorizationUrl }) => {
+  const [{ ui }, dispatch] = useStore();
+  const [randomAuthState] = useState(generateRandomOAuthState());
 
-// const mapDispatchToProps = {
-//   getToken: () => (dispatch, getState) => {
-//     const href = window.localStorage.code;
-//     window.localStorage.removeItem("code");
-//     const code = parseHrefForCode(href);
-//     const receivedState = parseHrefForState(href);
+  return (
+    <AuthWindowComponent
+      showOAuthWindow={ui.showOAuthWindow}
+      authorizationUrl={authorizationUrl}
+      randomAuthState={randomAuthState}
+      showAuthWindowHandler={() => dispatch(showAuthWindow(false))}
+      getToken={authState => {
+        const href = window.localStorage.code;
+        console.log("getToken href: ", href);
+        window.localStorage.removeItem("code");
+        const code = parseHrefForCode(href);
+        const receivedState = parseHrefForState(href);
 
-//     if (compareGeneratedWithReceivedState(getState().oauth.authState, receivedState) && code !== null)
-//       dispatch(retrieveToken(code));
-//   },
-//   setAuthState: authState => dispatch => dispatch(setRandomState(authState)),
-//   showAuthWindowHandler: show => dispatch => dispatch(showAuthWindow(show)),
-// };
+        console.log("receivedState: ", receivedState);
+        console.log("authState: ", authState);
 
-// const AuthWindow = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AuthWindowComponent);
+        if (compareGeneratedWithReceivedState(authState, receivedState) && code !== null) {
+          console.log("retreive drin");
+          dispatch(retrieveToken(code, dispatch));
+        }
+      }}
+    />
+  );
+};
 
-export default AuthWindowComponent;
+AuthWindow.propTypes = {
+  authorizationUrl: PropTypes.string.isRequired,
+};
+
+export default AuthWindow;

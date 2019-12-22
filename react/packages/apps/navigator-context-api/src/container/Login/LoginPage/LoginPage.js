@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { useStore } from "../../../store";
 
-// import { AUTHORIZATION_URL } from "../../../constants/constants";
+import { AUTHORIZATION_URL } from "../../../constants/constants";
 import loginPicture from "../../../images/login.jpg";
 
 import LoginButton from "../LoginButton";
@@ -59,7 +59,7 @@ export const LoginPageComponent = ({ location }) => {
             Sign in
           </Typography>
           <LoginButton />
-          <AuthWindow authorizationUrl="www.kicker.de" />
+          <AuthWindow authorizationUrl={AUTHORIZATION_URL} />
           {oAuthError && <Typography variant="body1">{oAuthError}</Typography>}
         </div>
       </Grid>
