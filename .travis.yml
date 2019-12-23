@@ -9,6 +9,8 @@ script:
   - yarn
   - "cd packages/components"
   - yarn test
+  - "cd ../store"
+  - yarn test
   - "cd ../apps/navigator"
   - yarn test
   - yarn build

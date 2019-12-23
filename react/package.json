@@ -6,7 +6,8 @@
     "packages": [
       "packages/apps/*",
       "packages/components",
-      "packages/storybook"
+      "packages/storybook",
+      "packages/store"
     ],
     "nohoist": [
       "**/webpack-dev-server",
