@@ -39,12 +39,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const LoginPageComponent = ({ location }) => {
-  const [{ oAuthError, loggedIn }] = useStore();
+  const [{ oauth }] = useStore();
   const classes = useStyles();
 
   const { from } = location.state || { from: { pathname: "/" } };
 
-  return loggedIn ? (
+  console.log("from: ", from);
+  console.log("oauth: ", oauth);
+  return oauth.loggedIn ? (
     <Redirect to={from} />
   ) : (
     <Grid container component="main" className={classes.root}>
@@ -60,7 +62,7 @@ export const LoginPageComponent = ({ location }) => {
           </Typography>
           <LoginButton />
           <AuthWindow authorizationUrl={AUTHORIZATION_URL} />
-          {oAuthError && <Typography variant="body1">{oAuthError}</Typography>}
+          {oauth.error && <Typography variant="body1">{oauth.error}</Typography>}
         </div>
       </Grid>
     </Grid>

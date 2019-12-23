@@ -1,14 +1,14 @@
-import ui, { initialState } from "./ui";
+import { reducer, initialState } from "./ui";
 import { OAUTH_SHOW_AUTH_WINDOW, TOGGLE_SIDE_DRAWER } from "../../actions/ui";
 
 describe("ui reducer", () => {
   it("should return the initial state", () => {
-    expect(ui(undefined, {})).toEqual(initialState);
+    expect(reducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle SHOW_AUTH_WINDOW", () => {
     expect(
-      ui([], {
+      reducer([], {
         type: OAUTH_SHOW_AUTH_WINDOW,
         showOAuthWindow: true,
       })
@@ -17,7 +17,7 @@ describe("ui reducer", () => {
     });
 
     expect(
-      ui(initialState, {
+      reducer(initialState, {
         type: OAUTH_SHOW_AUTH_WINDOW,
         showOAuthWindow: true,
       })
@@ -29,7 +29,7 @@ describe("ui reducer", () => {
 
   it("should handle TOGGLE_SIDE_DRAWER", () => {
     expect(
-      ui([], {
+      reducer([], {
         type: TOGGLE_SIDE_DRAWER,
         sideDrawerOpen: false,
       })
@@ -38,7 +38,7 @@ describe("ui reducer", () => {
     });
 
     expect(
-      ui(initialState, {
+      reducer(initialState, {
         type: TOGGLE_SIDE_DRAWER,
         sideDrawerOpen: false,
       })

@@ -1,14 +1,14 @@
-import oauth, { initialState } from "./oauth";
+import { reducer, initialState } from "./oauth";
 import { OAUTH_SET_DATA } from "../../actions/oauth";
 
 describe("oauth reducer", () => {
   it("should return the initial state", () => {
-    expect(oauth(undefined, {})).toEqual(initialState);
+    expect(reducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle OAUTH_SET_DATA", () => {
     expect(
-      oauth([], {
+      reducer([], {
         type: OAUTH_SET_DATA,
         authData: {},
         username: "username_foo",
@@ -22,7 +22,7 @@ describe("oauth reducer", () => {
     });
 
     expect(
-      oauth(initialState, {
+      reducer(initialState, {
         type: OAUTH_SET_DATA,
         authData: {},
         username: "username_foo",

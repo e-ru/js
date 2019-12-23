@@ -4,11 +4,16 @@ import "@testing-library/jest-dom/extend-expect";
 // NOTE: jest-dom adds handy assertions to Jest and is recommended, but not required
 
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { render } from "@testing-library/react";
 import App from "./App";
 
 test("renders App component", () => {
-  const { queryByTestId } = render(<App />);
+  const { queryByTestId } = render(
+    <Router>
+      <App />
+    </Router>
+  );
 
   expect(queryByTestId("app-test-id")).not.toBeNull();
 });
