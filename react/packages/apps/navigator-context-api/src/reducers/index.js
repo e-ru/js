@@ -1,4 +1,4 @@
-import { createReducer } from "../store";
+import { createReducer } from "@e-ru/store/src";
 
 import * as ui from "./ui";
 import * as oauth from "./oauth";

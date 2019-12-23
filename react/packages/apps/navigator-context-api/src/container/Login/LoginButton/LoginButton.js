@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-import { useStore } from "../../../store";
+import { useStore } from "@e-ru/store/src";
 import { showAuthWindow } from "../../../actions/ui";
 
 const useStyles = makeStyles(theme => ({

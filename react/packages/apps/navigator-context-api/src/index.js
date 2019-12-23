@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { StoreProvider } from "@e-ru/store/src";
 import { apiMiddleware } from "redux-api-middleware";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { StoreProvider } from "./store";
 import reducers, { initialState } from "./reducers";
 import logMiddleware from "./middleware/logMiddleware";
 import oauthMiddleware from "./middleware/oauthMiddleware";

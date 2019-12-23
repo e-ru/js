@@ -10,7 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
-import { useStore } from "../../../store";
+import { useStore } from "@e-ru/store/src";
 
 import { AUTHORIZATION_URL } from "../../../constants/constants";
 import loginPicture from "../../../images/login.jpg";

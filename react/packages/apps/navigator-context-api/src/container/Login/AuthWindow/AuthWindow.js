@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import NewWindow from "react-new-window";
 
-import { useStore } from "../../../store";
+import { useStore } from "@e-ru/store/src";
 
 import { retrieveToken } from "../../../actions/oauth";
 import { showAuthWindow } from "../../../actions/ui";
