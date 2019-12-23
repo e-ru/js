@@ -6,7 +6,6 @@ class OAuthHandler {
   }
 
   storeTokenData(tokenData) {
-    console.log("tokendata: ", tokenData);
     const decoded = JSON.parse(atob(tokenData.access_token.split(".")[1]));
     const username = decoded.user_name;
     const clientId = decoded.client_id;

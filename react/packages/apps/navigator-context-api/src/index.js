@@ -16,7 +16,7 @@ ReactDOM.render(
     <StoreProvider
       initialState={initialState}
       reducer={reducers}
-      middlewares={[apiMiddleware, oauthMiddleware, logMiddleware]}
+      middlewares={[logMiddleware, apiMiddleware, oauthMiddleware]}
     >
       <App />
     </StoreProvider>

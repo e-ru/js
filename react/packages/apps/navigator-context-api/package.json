@@ -5,16 +5,17 @@
   "main": "src/index.js",
   "main:src": "src/index.js",
   "dependencies": {
+    "@e-ru/components": "^0.1.0",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
-    "@e-ru/components": "^0.1.0",
+    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-new-window": "^0.1.2",
-    "react-router-dom": "^5.0.1",
-    "@react-workspaces/react-scripts": "3.0.1-alpha-07"
+    "react-router-dom": "^5.1.2",
+    "redux-api-middleware": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

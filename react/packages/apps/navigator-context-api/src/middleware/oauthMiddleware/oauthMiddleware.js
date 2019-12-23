@@ -7,8 +7,6 @@ const oAuthMiddleware = store => {
   const oAuthHandler = new OAuthHandler(store);
   return next => async action => {
     let skipAction = false;
-    console.log("drin oAuthMiddleware: ", action);
-    console.log("own next: ", next);
 
     if (action.type === OAUTH_TOKEN_SUCCESS) {
       oAuthHandler.storeTokenData(action.payload);

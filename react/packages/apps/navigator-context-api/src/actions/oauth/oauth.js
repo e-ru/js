@@ -2,7 +2,6 @@ import { RSAA, getJSON } from "redux-api-middleware";
 
 import { OAUTH_SERVER, GRANT_TYPE, CLIENT_ID, REDIRECT_URL, SCOPE } from "../../constants/constants";
 
-export const OAUTH_SET_RANDOM_STATE = "OAUTH_SET_RANDOM_STATE";
 export const OAUTH_SET_DATA = "OAUTH_SET_DATA";
 
 export const OAUTH_TOKEN_REQUEST = "OAUTH_TOKEN_REQUEST";
@@ -13,17 +12,7 @@ export const OAUTH_REVOKE_REFRESH_TOKEN_REQUEST = "REVOKE_REFRESH_TOKEN_REQUEST"
 export const OAUTH_REVOKE_REFRESH_TOKEN_SUCCESS = "REVOKE_REFRESH_TOKEN_SUCCESS";
 export const OAUTH_REVOKE_REFRESH_TOKEN_FAILURE = "REVOKE_REFRESH_TOKEN_FAILURE";
 
-// const successPayload = async (action, state, res, dispatch) => {
-//   console.log("drin successPayload");
-//   const ret = await getJSON(res);
-//   console.log("ret: ", ret);
-//   console.log("action: ", action)
-//   dispatch({ type: OAUTH_TOKEN_SUCCESS, payload: ret });
-//   // return ret;
-// };
-
 const successPayload = (action, state, res) => {
-  console.log("drin successPayload");
   return getJSON(res).then(json => json);
 };
 
@@ -37,7 +26,7 @@ const getFormBody = code => {
   return new URLSearchParams(formData);
 };
 
-export const retrieveToken = (code, dispatch) => ({
+export const retrieveToken = code => ({
   [RSAA]: {
     endpoint: `${OAUTH_SERVER}/oauth/token`,
     method: "POST",
@@ -47,7 +36,6 @@ export const retrieveToken = (code, dispatch) => ({
       OAUTH_TOKEN_REQUEST,
       {
         type: OAUTH_TOKEN_SUCCESS,
-        // payload: (action, state, res) => successPayload(action, state, res, dispatch),
         payload: successPayload,
       },
       OAUTH_TOKEN_FAILURE,
@@ -69,11 +57,6 @@ export const revokeRefreshToken = (username, clientId, accessToken) => ({
       OAUTH_REVOKE_REFRESH_TOKEN_FAILURE,
     ],
   },
-});
-
-export const setRandomState = authState => ({
-  type: OAUTH_SET_RANDOM_STATE,
-  authState,
 });
 
 export const setOAuthData = (authData, username, clientId) => ({

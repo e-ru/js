@@ -1,4 +1,4 @@
-import { OAUTH_SET_DATA, OAUTH_SET_RANDOM_STATE, setOAuthData, setRandomState } from "./oauth";
+import { OAUTH_SET_DATA, setOAuthData } from "./oauth";
 
 describe("oauth actions", () => {
   it("should create an action to set oauth data", () => {
@@ -12,14 +12,5 @@ describe("oauth actions", () => {
       clientId,
     };
     expect(setOAuthData(authData, username, clientId)).toEqual(expectedAction);
-  });
-
-  it("should create an action to set random state", () => {
-    const authState = "foo-state";
-    const expectedAction = {
-      type: OAUTH_SET_RANDOM_STATE,
-      authState,
-    };
-    expect(setRandomState(authState)).toEqual(expectedAction);
   });
 });

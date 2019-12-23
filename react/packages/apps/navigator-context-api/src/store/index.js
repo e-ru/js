@@ -3,16 +3,32 @@ import PropTypes from "prop-types";
 
 export const StateContext = createContext();
 
-const compose = (...funcs) => x => {
-  const red = funcs.reduceRight((composed, f) => {
-    return f(composed);
-  }, x);
+// reducer
+
+// https://blog.jakoblind.no/code-your-own-combinereducers/
+const combineReducers = reducers => (state = {}, action) => ({
+  ...Object.entries(reducers)
+    .map(([stateName, reducer]) => ({ [stateName]: reducer(state[stateName], action) }))
+    .reduce((acc, cur) => {
+      const stateName = Object.keys(cur);
+      acc[stateName] = { ...cur[stateName] };
+      return acc;
+    }, {}),
+});
+
+export const createReducer = reducers => (state, action) => combineReducers(reducers)(state, action);
+
+// store
+
+const compose = (...funcs) => dispatch => {
+  const red = funcs.reduceRight((composed, middleware) => {
+    return middleware(composed);
+  }, dispatch);
   return red;
 };
 
 const createStore = ([state, dispatch], middlewares) => {
   if (typeof middlewares !== "undefined") {
-    // return middlewares(createStore)(reducer, initialState);
     const middlewareAPI = {
       getState: () => state,
       dispatch: action => dispatch(action),
@@ -21,7 +37,6 @@ const createStore = ([state, dispatch], middlewares) => {
     const enhancedDispatch = compose(...chain)(dispatch);
     return { state, dispatch: enhancedDispatch };
   }
-
   return { state, dispatch };
 };
 

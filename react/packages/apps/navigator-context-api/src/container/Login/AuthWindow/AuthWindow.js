@@ -54,17 +54,12 @@ const AuthWindow = ({ authorizationUrl }) => {
       showAuthWindowHandler={() => dispatch(showAuthWindow(false))}
       getToken={authState => {
         const href = window.localStorage.code;
-        console.log("getToken href: ", href);
         window.localStorage.removeItem("code");
         const code = parseHrefForCode(href);
         const receivedState = parseHrefForState(href);
 
-        console.log("receivedState: ", receivedState);
-        console.log("authState: ", authState);
-
         if (compareGeneratedWithReceivedState(authState, receivedState) && code !== null) {
-          console.log("retreive drin");
-          dispatch(retrieveToken(code, dispatch));
+          dispatch(retrieveToken(code));
         }
       }}
     />
