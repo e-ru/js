@@ -38,15 +38,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const LoginPageComponent = ({ location }) => {
-  const [{ oauth }] = useStore();
+export const LoginPageComponent = ({ loggedIn, oAuthError, from }) => {
   const classes = useStyles();
-
-  const { from } = location.state || { from: { pathname: "/" } };
-
-  console.log("from: ", from);
-  console.log("oauth: ", oauth);
-  return oauth.loggedIn ? (
+  return loggedIn ? (
     <Redirect to={from} />
   ) : (
     <Grid container component="main" className={classes.root}>
@@ -62,17 +56,32 @@ export const LoginPageComponent = ({ location }) => {
           </Typography>
           <LoginButton />
           <AuthWindow authorizationUrl={AUTHORIZATION_URL} />
-          {oauth.error && <Typography variant="body1">{oauth.error}</Typography>}
+          {oAuthError && <Typography variant="body1">{oAuthError}</Typography>}
         </div>
       </Grid>
     </Grid>
   );
 };
 
+LoginPageComponent.defaultProps = {
+  oAuthError: null,
+};
+
 LoginPageComponent.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  oAuthError: PropTypes.string,
+  from: PropTypes.object.isRequired,
+};
+
+const LoginPage = ({ location }) => {
+  const [{ oauth }] = useStore();
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  return <LoginPageComponent loggedIn={oauth.loggedIn} oAuthError={oauth.error} from={from} />;
+};
+
+LoginPage.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-const LoginPage = withRouter(LoginPageComponent);
-
-export default LoginPage;
+export default withRouter(LoginPage);
