@@ -11,6 +11,9 @@ import reducers, { initialState } from "./reducers";
 import logMiddleware from "./middleware/logMiddleware";
 import oauthMiddleware from "./middleware/oauthMiddleware";
 
+console.log("index reducers: ", reducers);
+console.log("index initialState: ", initialState);
+
 ReactDOM.render(
   <Router>
     <StoreProvider

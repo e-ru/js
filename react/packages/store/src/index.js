@@ -20,8 +20,8 @@ export const createReducer = reducers => (state, action) => combineReducers(redu
 
 // store
 
-const compose = (...funcs) => dispatch => {
-  const red = funcs.reduceRight((composed, middleware) => {
+const compose = (...middlewaresWithApi) => dispatch => {
+  const red = middlewaresWithApi.reduceRight((composed, middleware) => {
     return middleware(composed);
   }, dispatch);
   return red;
